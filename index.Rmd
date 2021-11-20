@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Spotify Songs"
+author: "Junhao Zhang, Wei Luo, Yihan Wang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---

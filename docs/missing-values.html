@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 4 Missing values | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 4 Missing values | Spotify Songs</title>
+  <meta name="description" content="Chapter 4 Missing values | Spotify Songs" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 4 Missing values | Spotify Songs" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Spotify Songs" />
   
   
   
 
-<meta name="author" content="YOUR NAMES HERE" />
+<meta name="author" content="Junhao Zhang, Wei Luo, Yihan Wang" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2021-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="data-transformation.html"/>
 <link rel="next" href="results.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,9 +51,74 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -68,7 +134,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">ss</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -89,7 +155,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Spotify Songs</a>
           </h1>
         </div>
 
@@ -99,6 +165,136 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="missing-values.html#cb1-1" aria-hidden="true" tabindex="-1"></a>missing_value_plot<span class="ot">&lt;-</span><span class="cf">function</span>(data,<span class="at">type=</span><span class="st">&#39;counts&#39;</span>){</span>
+<span id="cb1-2"><a href="missing-values.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># find and count the missing patterns</span></span>
+<span id="cb1-3"><a href="missing-values.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  missing_patterns <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">is.na</span>(data)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="missing-values.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by_all</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="missing-values.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">name =</span> <span class="st">&quot;count&quot;</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="missing-values.html#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb1-7"><a href="missing-values.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="missing-values.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add id to each row</span></span>
+<span id="cb1-9"><a href="missing-values.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  missing_patterns <span class="ot">&lt;-</span> missing_patterns <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="missing-values.html#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">id=</span><span class="fu">row_number</span>(),<span class="at">.before=</span><span class="dv">1</span>)</span>
+<span id="cb1-11"><a href="missing-values.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="missing-values.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tidy the missing patterns</span></span>
+<span id="cb1-13"><a href="missing-values.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  new_missing_patterns <span class="ot">&lt;-</span> missing_patterns <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="missing-values.html#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.logical, as.character)</span>
+<span id="cb1-15"><a href="missing-values.html#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#mutate_all(funs(as.character(.)))</span></span>
+<span id="cb1-16"><a href="missing-values.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(new_missing_patterns)) {</span>
+<span id="cb1-17"><a href="missing-values.html#cb1-17" aria-hidden="true" tabindex="-1"></a>    flag <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb1-18"><a href="missing-values.html#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(new_missing_patterns)) {</span>
+<span id="cb1-19"><a href="missing-values.html#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (new_missing_patterns[i,j]<span class="sc">==</span><span class="st">&#39;TRUE&#39;</span>) {</span>
+<span id="cb1-20"><a href="missing-values.html#cb1-20" aria-hidden="true" tabindex="-1"></a>        flag <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-21"><a href="missing-values.html#cb1-21" aria-hidden="true" tabindex="-1"></a>      } </span>
+<span id="cb1-22"><a href="missing-values.html#cb1-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-23"><a href="missing-values.html#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (flag<span class="sc">==</span><span class="dv">0</span>) {</span>
+<span id="cb1-24"><a href="missing-values.html#cb1-24" aria-hidden="true" tabindex="-1"></a>      new_missing_patterns[i,<span class="dv">2</span><span class="sc">:</span>(<span class="fu">ncol</span>(new_missing_patterns)<span class="sc">-</span><span class="dv">1</span>)] <span class="ot">&lt;-</span><span class="st">&#39;complete&#39;</span></span>
+<span id="cb1-25"><a href="missing-values.html#cb1-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-26"><a href="missing-values.html#cb1-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-27"><a href="missing-values.html#cb1-27" aria-hidden="true" tabindex="-1"></a>  tidypatterns <span class="ot">&lt;-</span> new_missing_patterns <span class="sc">%&gt;%</span></span>
+<span id="cb1-28"><a href="missing-values.html#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb1-29"><a href="missing-values.html#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="sc">!</span>id,<span class="at">names_to =</span><span class="st">&#39;key&#39;</span>,<span class="at">values_to=</span><span class="st">&#39;value&#39;</span>)</span>
+<span id="cb1-30"><a href="missing-values.html#cb1-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-31"><a href="missing-values.html#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the main graph</span></span>
+<span id="cb1-32"><a href="missing-values.html#cb1-32" aria-hidden="true" tabindex="-1"></a>  column_sum <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(data))</span>
+<span id="cb1-33"><a href="missing-values.html#cb1-33" aria-hidden="true" tabindex="-1"></a>  variable_order <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(column_sum,<span class="at">decreasing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-34"><a href="missing-values.html#cb1-34" aria-hidden="true" tabindex="-1"></a>  variable <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(tidypatterns<span class="sc">$</span>key,variable_order)</span>
+<span id="cb1-35"><a href="missing-values.html#cb1-35" aria-hidden="true" tabindex="-1"></a>  main <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tidypatterns,<span class="fu">aes</span>(<span class="at">x=</span>variable,<span class="at">y=</span><span class="fu">fct_rev</span>(<span class="fu">factor</span>(id)),<span class="at">fill=</span>value))<span class="sc">+</span></span>
+<span id="cb1-36"><a href="missing-values.html#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-37"><a href="missing-values.html#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;TRUE&#39;</span><span class="ot">=</span><span class="st">&#39;darkorchid1&#39;</span>,<span class="st">&#39;FALSE&#39;</span><span class="ot">=</span><span class="st">&#39;grey&#39;</span>,<span class="st">&#39;complete&#39;</span><span class="ot">=</span><span class="st">&#39;darkgrey&#39;</span>))<span class="sc">+</span></span>
+<span id="cb1-38"><a href="missing-values.html#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-39"><a href="missing-values.html#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;variable&#39;</span>,<span class="at">y=</span><span class="st">&#39;missing pattern&#39;</span>)</span>
+<span id="cb1-40"><a href="missing-values.html#cb1-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-41"><a href="missing-values.html#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add text</span></span>
+<span id="cb1-42"><a href="missing-values.html#cb1-42" aria-hidden="true" tabindex="-1"></a>  complete_loc <span class="ot">&lt;-</span> tidypatterns<span class="sc">$</span>id[<span class="fu">which</span>(tidypatterns<span class="sc">$</span>value<span class="sc">==</span><span class="st">&#39;complete&#39;</span>)]</span>
+<span id="cb1-43"><a href="missing-values.html#cb1-43" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">ncol</span>(data)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb1-44"><a href="missing-values.html#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> complete_loc) {</span>
+<span id="cb1-45"><a href="missing-values.html#cb1-45" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">nrow</span>(missing_patterns)<span class="sc">-</span>i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb1-46"><a href="missing-values.html#cb1-46" aria-hidden="true" tabindex="-1"></a>    main <span class="ot">&lt;-</span> main<span class="sc">+</span><span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">label=</span><span class="st">&#39;complete case&#39;</span>),<span class="at">size=</span><span class="dv">4</span>,<span class="at">family=</span><span class="st">&quot;Times New Roman&quot;</span>,<span class="at">fontface=</span><span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb1-47"><a href="missing-values.html#cb1-47" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-48"><a href="missing-values.html#cb1-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-49"><a href="missing-values.html#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (type<span class="sc">==</span><span class="st">&#39;counts&#39;</span>){</span>
+<span id="cb1-50"><a href="missing-values.html#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the top graph</span></span>
+<span id="cb1-51"><a href="missing-values.html#cb1-51" aria-hidden="true" tabindex="-1"></a>    column_count<span class="ot">&lt;-</span>data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-52"><a href="missing-values.html#cb1-52" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb1-53"><a href="missing-values.html#cb1-53" aria-hidden="true" tabindex="-1"></a>          <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">everything</span>(), <span class="at">names_to=</span><span class="st">&quot;variable&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;count&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-54"><a href="missing-values.html#cb1-54" aria-hidden="true" tabindex="-1"></a>          <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb1-55"><a href="missing-values.html#cb1-55" aria-hidden="true" tabindex="-1"></a>    top <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(column_count,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(variable, <span class="at">levels=</span>column_count<span class="sc">$</span>variable), <span class="at">y=</span>count))<span class="sc">+</span></span>
+<span id="cb1-56"><a href="missing-values.html#cb1-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>(<span class="at">fill=</span><span class="st">&#39;lightblue&#39;</span>)<span class="sc">+</span></span>
+<span id="cb1-57"><a href="missing-values.html#cb1-57" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;&#39;</span>,<span class="at">y=</span><span class="st">&#39;num rows missing:&#39;</span>)<span class="sc">+</span></span>
+<span id="cb1-58"><a href="missing-values.html#cb1-58" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">&#39;Missing Value Patterns with counts&#39;</span>)</span>
+<span id="cb1-59"><a href="missing-values.html#cb1-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-60"><a href="missing-values.html#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the right graph</span></span>
+<span id="cb1-61"><a href="missing-values.html#cb1-61" aria-hidden="true" tabindex="-1"></a>    row_count <span class="ot">&lt;-</span>new_missing_patterns <span class="sc">%&gt;%</span></span>
+<span id="cb1-62"><a href="missing-values.html#cb1-62" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_column</span>(<span class="at">status=</span><span class="st">&#39;missing&#39;</span>)</span>
+<span id="cb1-63"><a href="missing-values.html#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(row_count)) {</span>
+<span id="cb1-64"><a href="missing-values.html#cb1-64" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">any</span>(row_count[i,]<span class="sc">==</span><span class="st">&#39;complete&#39;</span>)){</span>
+<span id="cb1-65"><a href="missing-values.html#cb1-65" aria-hidden="true" tabindex="-1"></a>        row_count[i,<span class="st">&#39;status&#39;</span>]<span class="ot">&lt;-</span><span class="st">&#39;complete&#39;</span></span>
+<span id="cb1-66"><a href="missing-values.html#cb1-66" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-67"><a href="missing-values.html#cb1-67" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-68"><a href="missing-values.html#cb1-68" aria-hidden="true" tabindex="-1"></a>    right <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(row_count,<span class="fu">aes</span>(<span class="at">x=</span>count,<span class="at">y=</span><span class="fu">fct_rev</span>(<span class="fu">factor</span>(id)),<span class="at">fill=</span>status))<span class="sc">+</span></span>
+<span id="cb1-69"><a href="missing-values.html#cb1-69" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb1-70"><a href="missing-values.html#cb1-70" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;lightblue&#39;</span>))<span class="sc">+</span></span>
+<span id="cb1-71"><a href="missing-values.html#cb1-71" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-72"><a href="missing-values.html#cb1-72" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;row count&#39;</span>,<span class="at">y=</span><span class="st">&#39;&#39;</span>)</span>
+<span id="cb1-73"><a href="missing-values.html#cb1-73" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-74"><a href="missing-values.html#cb1-74" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (type<span class="sc">==</span><span class="st">&#39;percents&#39;</span>){</span>
+<span id="cb1-75"><a href="missing-values.html#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the top graph</span></span>
+<span id="cb1-76"><a href="missing-values.html#cb1-76" aria-hidden="true" tabindex="-1"></a>    column_count <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-77"><a href="missing-values.html#cb1-77" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.x))<span class="sc">/</span><span class="fu">nrow</span>(data)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-78"><a href="missing-values.html#cb1-78" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">everything</span>(), <span class="at">names_to=</span><span class="st">&quot;variable&quot;</span>, <span class="at">values_to=</span><span class="st">&quot;count&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-79"><a href="missing-values.html#cb1-79" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb1-80"><a href="missing-values.html#cb1-80" aria-hidden="true" tabindex="-1"></a>    top <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(column_count,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(variable, <span class="at">levels=</span>column_count<span class="sc">$</span>variable), <span class="at">y=</span>count))<span class="sc">+</span></span>
+<span id="cb1-81"><a href="missing-values.html#cb1-81" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>(<span class="at">fill=</span><span class="st">&#39;lightblue&#39;</span>)<span class="sc">+</span></span>
+<span id="cb1-82"><a href="missing-values.html#cb1-82" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="at">by=</span><span class="dv">25</span>))<span class="sc">+</span></span>
+<span id="cb1-83"><a href="missing-values.html#cb1-83" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;&#39;</span>,<span class="at">y=</span><span class="st">&#39;% rows missing:&#39;</span>)<span class="sc">+</span></span>
+<span id="cb1-84"><a href="missing-values.html#cb1-84" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">&#39;Missing Value Patterns with percents&#39;</span>)</span>
+<span id="cb1-85"><a href="missing-values.html#cb1-85" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-86"><a href="missing-values.html#cb1-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the right graph</span></span>
+<span id="cb1-87"><a href="missing-values.html#cb1-87" aria-hidden="true" tabindex="-1"></a>    row_count <span class="ot">&lt;-</span>new_missing_patterns <span class="sc">%&gt;%</span></span>
+<span id="cb1-88"><a href="missing-values.html#cb1-88" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_column</span>(<span class="at">status=</span><span class="st">&#39;missing&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-89"><a href="missing-values.html#cb1-89" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">count=</span><span class="dv">100</span><span class="sc">*</span>(count<span class="sc">/</span><span class="fu">nrow</span>(data))) <span class="sc">%&gt;%</span></span>
+<span id="cb1-90"><a href="missing-values.html#cb1-90" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(count))</span>
+<span id="cb1-91"><a href="missing-values.html#cb1-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(row_count)) {</span>
+<span id="cb1-92"><a href="missing-values.html#cb1-92" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">any</span>(row_count[i,]<span class="sc">==</span><span class="st">&#39;complete&#39;</span>)){</span>
+<span id="cb1-93"><a href="missing-values.html#cb1-93" aria-hidden="true" tabindex="-1"></a>        row_count[i,<span class="st">&#39;status&#39;</span>]<span class="ot">&lt;-</span><span class="st">&#39;complete&#39;</span></span>
+<span id="cb1-94"><a href="missing-values.html#cb1-94" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-95"><a href="missing-values.html#cb1-95" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-96"><a href="missing-values.html#cb1-96" aria-hidden="true" tabindex="-1"></a>    right <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(row_count,<span class="fu">aes</span>(<span class="at">x=</span>count,<span class="at">y=</span><span class="fu">fct_rev</span>(<span class="fu">factor</span>(id)),<span class="at">fill=</span>status))<span class="sc">+</span></span>
+<span id="cb1-97"><a href="missing-values.html#cb1-97" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb1-98"><a href="missing-values.html#cb1-98" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;lightblue&#39;</span>))<span class="sc">+</span></span>
+<span id="cb1-99"><a href="missing-values.html#cb1-99" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="at">by=</span><span class="dv">25</span>))<span class="sc">+</span></span>
+<span id="cb1-100"><a href="missing-values.html#cb1-100" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-101"><a href="missing-values.html#cb1-101" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;% rows&#39;</span>,<span class="at">y=</span><span class="st">&#39;&#39;</span>)</span>
+<span id="cb1-102"><a href="missing-values.html#cb1-102" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-103"><a href="missing-values.html#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> (<span class="fu">print</span>(<span class="st">&#39;Wrong Type Input&#39;</span>))</span>
+<span id="cb1-104"><a href="missing-values.html#cb1-104" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-105"><a href="missing-values.html#cb1-105" aria-hidden="true" tabindex="-1"></a>  top <span class="sc">+</span> <span class="fu">plot_spacer</span>() <span class="sc">+</span> main <span class="sc">+</span> right <span class="sc">+</span> </span>
+<span id="cb1-106"><a href="missing-values.html#cb1-106" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_layout</span>(</span>
+<span id="cb1-107"><a href="missing-values.html#cb1-107" aria-hidden="true" tabindex="-1"></a>      <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb1-108"><a href="missing-values.html#cb1-108" aria-hidden="true" tabindex="-1"></a>      <span class="at">nrow =</span> <span class="dv">2</span>, </span>
+<span id="cb1-109"><a href="missing-values.html#cb1-109" aria-hidden="true" tabindex="-1"></a>      <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>),</span>
+<span id="cb1-110"><a href="missing-values.html#cb1-110" aria-hidden="true" tabindex="-1"></a>      <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb1-111"><a href="missing-values.html#cb1-111" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-112"><a href="missing-values.html#cb1-112" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="missing-values.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(ggplot2<span class="sc">::</span>economics,<span class="at">type=</span><span class="st">&#39;counts&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="missing-values.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(ggplot2<span class="sc">::</span>economics,<span class="at">type=</span><span class="st">&#39;percents&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="missing-values.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df_c<span class="ot">&lt;-</span>Lock5withR<span class="sc">::</span>HollywoodMovies2011</span>
+<span id="cb4-2"><a href="missing-values.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_c)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&#39;Movie&#39;</span>,<span class="st">&#39;LS&#39;</span>,<span class="st">&#39;RT&#39;</span>,<span class="st">&#39;AS&#39;</span>,<span class="st">&#39;Story&#39;</span>,<span class="st">&#39;Genre&#39;</span>,<span class="st">&#39;TOW&#39;</span>,</span>
+<span id="cb4-3"><a href="missing-values.html#cb4-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&#39;BOAPW&#39;</span>,<span class="st">&#39;DG&#39;</span>,<span class="st">&#39;FG&#39;</span>,<span class="st">&#39;WG&#39;</span>,<span class="st">&#39;Budget&#39;</span>,<span class="st">&#39;Profit&#39;</span>,<span class="st">&#39;OW&#39;</span>)</span>
+<span id="cb4-4"><a href="missing-values.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(df_c,<span class="at">type=</span><span class="st">&#39;counts&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="missing-values.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(df_c,<span class="at">type=</span><span class="st">&#39;percents&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-2.png" width="672" />
+We have found that our final data set has missing values in only few rows which is not really useful. We decided to omit them and use the ucla_textbooks_f18 data set in openintro package.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="missing-values.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb6-2"><a href="missing-values.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(openintro<span class="sc">::</span>ucla_textbooks_f18,<span class="at">type=</span><span class="st">&#39;counts&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="missing-values.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_value_plot</span>(openintro<span class="sc">::</span>ucla_textbooks_f18,<span class="at">type=</span><span class="st">&#39;percents&#39;</span>)</span></code></pre></div>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-2.png" width="1152" />
+According to the plot above, we can tell that there are 20 missing patterns and the fifth missing pattern is a complete case. The fisrt missing patterns has the highest row count. It seems that there is correlation between the price of new books and used books both in amazon and in bookstore because they all have really high missing values compared with other variables. Also, it’s quiet strange that there are so many missing values in book price variables. Regarding of book features,textbook_isbn is more likely to be missing than any other book features except price because book isbn is long and complicated and people normally won’t use isbn much when they buy books. There are three columns, year,term and subject doesn’t have missing values. One interesting observation is that there are no missing values in subject, but there are missing values in Subject abbreviation which means that some book are not used for one specific subject but for multiple subjects and that’s why the subject abbr is missing because it doesn’t know how to fill in the subject abbreviation.</p>
 
 </div>
             </section>
@@ -111,7 +307,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -130,6 +325,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -150,6 +346,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
