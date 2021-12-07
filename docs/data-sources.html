@@ -24,7 +24,7 @@
 <meta name="author" content="Junhao Zhang, Wei Luo, Yihan Wang" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#spotify-songs-of-2020"><i class="fa fa-check"></i><b>2.1</b> Spotify Songs of 2020</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -165,7 +168,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<div id="spotify-songs-of-2020" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Spotify Songs of 2020</h2>
+<p><strong>Dataset : spofity_songs.csv</strong> <br></p>
+<p>The primary dataset of this project comes from Spotify via the <a href="https://www.rcharlie.com/spotifyr/"><em>spotifyr </em></a>package. It contains the detailed information of thousand of spofity songs.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-35">Table 2.1: </span>Column Description</caption>
+<colgroup>
+<col width="4%" />
+<col width="1%" />
+<col width="93%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">variables</th>
+<th align="left">class</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">track_id</td>
+<td align="left">character</td>
+<td align="left">Song unique ID</td>
+</tr>
+<tr class="even">
+<td align="left">track_name</td>
+<td align="left">character</td>
+<td align="left">Song Name</td>
+</tr>
+<tr class="odd">
+<td align="left">track_artist</td>
+<td align="left">character</td>
+<td align="left">Song Artist</td>
+</tr>
+<tr class="even">
+<td align="left">track_popularity</td>
+<td align="left">double</td>
+<td align="left">Song Popularity (0-100) where higher is better</td>
+</tr>
+<tr class="odd">
+<td align="left">track_album_id</td>
+<td align="left">character</td>
+<td align="left">Album unique ID</td>
+</tr>
+<tr class="even">
+<td align="left">track_album_name</td>
+<td align="left">character</td>
+<td align="left">Song album name</td>
+</tr>
+<tr class="odd">
+<td align="left">track_album_release_date</td>
+<td align="left">character</td>
+<td align="left">Date when album released</td>
+</tr>
+<tr class="even">
+<td align="left">playlist_name</td>
+<td align="left">character</td>
+<td align="left">Name of playlist</td>
+</tr>
+<tr class="odd">
+<td align="left">playlist_id</td>
+<td align="left">character</td>
+<td align="left">Playlist ID</td>
+</tr>
+<tr class="even">
+<td align="left">playlist_genre</td>
+<td align="left">character</td>
+<td align="left">Playlist genre</td>
+</tr>
+<tr class="odd">
+<td align="left">playlist_subgenre</td>
+<td align="left">character</td>
+<td align="left">Playlist subgenre</td>
+</tr>
+<tr class="even">
+<td align="left">danceability</td>
+<td align="left">double</td>
+<td align="left">Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable</td>
+</tr>
+<tr class="odd">
+<td align="left">energy</td>
+<td align="left">double</td>
+<td align="left">Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy</td>
+</tr>
+<tr class="even">
+<td align="left">key</td>
+<td align="left">double</td>
+<td align="left">The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g.0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1</td>
+</tr>
+<tr class="odd">
+<td align="left">loudness</td>
+<td align="left">double</td>
+<td align="left">The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db</td>
+</tr>
+<tr class="even">
+<td align="left">mode</td>
+<td align="left">double</td>
+<td align="left">Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0</td>
+</tr>
+<tr class="odd">
+<td align="left">speechiness</td>
+<td align="left">double</td>
+<td align="left">Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks</td>
+</tr>
+<tr class="even">
+<td align="left">acousticness</td>
+<td align="left">double</td>
+<td align="left">A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic</td>
+</tr>
+<tr class="odd">
+<td align="left">instrumentalness</td>
+<td align="left">double</td>
+<td align="left">Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0</td>
+</tr>
+<tr class="even">
+<td align="left">liveness</td>
+<td align="left">double</td>
+<td align="left">Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live</td>
+</tr>
+<tr class="odd">
+<td align="left">valence</td>
+<td align="left">double</td>
+<td align="left">A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)</td>
+</tr>
+<tr class="even">
+<td align="left">tempo</td>
+<td align="left">double</td>
+<td align="left">The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration</td>
+</tr>
+<tr class="odd">
+<td align="left">duration_ms</td>
+<td align="left">double</td>
+<td align="left">Duration of song in milliseconds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issues with this dataset: </strong></p>
+<ol style="list-style-type: decimal">
+<li>The information gathered in this dataset is not updated. It only contains information of spotify songs up to January 2020. The track_popularity column is subject to change, but the change will be trivial compared to the size of the entire dataset. Although this will not affect our analysis or overall conclusion, it is worth attention to the data incompleteness here.</li>
+</ol>
+<p>only three columns have mising value: track_name, track_artist, track_album_name, not use those columns.</p>
 
+</div>
 </div>
             </section>
 
@@ -204,7 +349,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/02-data.Rmd",
+"link": "https://github.com/SchizoidMann/spotify_songs/edit/main/02-data.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -212,7 +357,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/02-data.Rmd",
+"link": "https://github.com/SchizoidMann/spotify_songsE/blob/main/02-data.Rmd",
 "text": null
 },
 "download": null,

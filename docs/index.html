@@ -24,7 +24,7 @@
 <meta name="author" content="Junhao Zhang, Wei Luo, Yihan Wang" />
 
 
-<meta name="date" content="2021-11-19" />
+<meta name="date" content="2021-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#spotify-songs-of-2020"><i class="fa fa-check"></i><b>2.1</b> Spotify Songs of 2020</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
@@ -166,10 +169,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Spotify Songs</h1>
 <p class="author"><em>Junhao Zhang, Wei Luo, Yihan Wang</em></p>
-<p class="date"><em>2021-11-19</em></p>
+<p class="date"><em>2021-12-07</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p><br>
+A song is a musical composition intended to be performed by the human voice. This is often done at distinct and fixed pitches (melodies) using patterns of sound and silence. Songs contain various forms, such as those including the repetition and variation of sections. Music can also stimulate the mind. There are many things in music, to which one can listen and bring attention. One can be mindful of the melodies or themes, the harmony, the driving or relaxed rhythms, the color of the sounds, the activity of a piece, how the sounds are produced, or how they all relate to one another, all while, possibly figuring out how the composer conceived the piece. Focused and attentive listening is an incredible experience that allows one to be lost in a foreign sound world. Spotify, one of the most popular audio streaming and media services provider in the world, gives customers access to millions of songs and other content from creators all over the world.
+<br>
+<br>
+In this project, we collected a set of songs from spofity with detailed information of each song to generate visualizations and conduct investigations on the relationships between popularity and music characteristics. We would like to carry out analysis and answer the following questions: <br>
+- Given various of song features, we want to discover how music genres differ in characteristics. <br>
+- Given a set of songs, we want to explore what features (individual or combined) will positively or negatively affect the popularity and people’s preferences. <br>
+- Given any specific songs, we want to find if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions. <br></p>
+<p>In the following chapters, we will discuss these questions and provide some new insights on the mucic characteristics. <br></p>
+<p>For more details of this project, click <a href="https://github.com/SchizoidMann/spotify_songs.git">the link here</a> or copy the url <a href="https://github.com/SchizoidMann/spotify_songs.git" class="uri">https://github.com/SchizoidMann/spotify_songs.git</a> and open it in browser to go to our Github repository and navigate code in <code>.Rmd</code> files.</p>
 
 </div>
             </section>
@@ -209,7 +222,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/index.Rmd",
+"link": "https://github.com/SchizoidMann/spotify_songs/edit/main/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -217,7 +230,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/index.Rmd",
+"link": "https://github.com/SchizoidMann/spotify_songsE/blob/main/index.Rmd",
 "text": null
 },
 "download": null,

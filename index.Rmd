@@ -7,3 +7,15 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+<br>
+A song is a musical composition intended to be performed by the human voice. This is often done at distinct and fixed pitches (melodies) using patterns of sound and silence. Songs contain various forms, such as those including the repetition and variation of sections. Music can also stimulate the mind. There are many things in music, to which one can listen and bring attention. One can be mindful of the melodies or themes, the harmony, the driving or relaxed rhythms, the color of the sounds, the activity of a piece, how the sounds are produced, or how they all relate to one another, all while, possibly figuring out how the composer conceived the piece. Focused and attentive listening is an incredible experience that allows one to be lost in a foreign sound world. Spotify, one of the most popular audio streaming and media services provider in the world, gives customers access to millions of songs and other content from creators all over the world.
+<br>
+<br>
+In this project, we collected a set of songs from spofity with detailed information of each song to generate visualizations and conduct investigations on the relationships between popularity and music characteristics. We would like to carry out analysis and answer the following questions: <br>
+- Given various of song features, we want to discover how music genres differ in characteristics. <br>
+- Given a set of songs, we want to explore what features (individual or combined) will positively or negatively affect the popularity and people’s preferences. <br>
+- Given any specific songs, we want to find if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions. <br>
+
+In the following chapters, we will discuss these questions and provide some new insights on the mucic characteristics. <br>
+
+For more details of this project, click [the link here](https://github.com/SchizoidMann/spotify_songs.git) or copy the url https://github.com/SchizoidMann/spotify_songs.git and open it in browser to go to our Github repository and navigate code in `.Rmd` files.
