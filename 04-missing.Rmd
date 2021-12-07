@@ -7,8 +7,8 @@ library(tidyverse)
 library(patchwork)
 library(openintro)
 ```
-
-```{r,echo=FALSE}
+We have found that our final data set has missing values in only few rows which is not really useful. We decided to omit them and use the ucla_textbooks_f18 data set in openintro package.
+```{r,fig.width=12,fig.height=12,message=FALSE,echo=FALSE,warning=FALSE}
 missing_value_plot<-function(data,type='counts'){
   # find and count the missing patterns
   missing_patterns <- data.frame(is.na(data)) %>%
@@ -121,10 +121,6 @@ missing_value_plot<-function(data,type='counts'){
       heights = c(1, 4)
     )
 }
-```
-
-We have found that our final data set has missing values in only few rows which is not really useful. We decided to omit them and use the ucla_textbooks_f18 data set in openintro package.
-```{r,fig.width=12,fig.height=12,message=FALSE,echo=FALSE}
 missing_value_plot(openintro::ucla_textbooks_f18,type='counts')
 missing_value_plot(openintro::ucla_textbooks_f18,type='percents')
 ```
