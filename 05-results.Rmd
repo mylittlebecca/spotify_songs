@@ -1,1 +1,157 @@
 # Results
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+#install.packages('spotifyr')
+library('spotifyr')
+#library(here)
+library(readr)
+library(tidyverse)
+library(socviz)
+library(dplyr)
+library('tidytuesdayR')
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
+songs_info <- spotify_songs %>%
+  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
+```
+In this section, we are going to fit a classification model on the dataset in order to predict the correct genre of songs.
+
+# Statistics of each genre 
+
+First, we can get some statistics of each genre of songs:
+```{r}
+ggplot(songs_info, aes(x = playlist_genre, fill = playlist_genre))+
+  geom_bar(width=1)+
+  coord_polar()+
+  theme_void()
+```
+
+from this pie chart, we can conclude that every genre has relatively same size of data, and no genre is biased (missing enough data for classification model).
+
+we also can plot a Cleveland dot plots for all genre in order to see detailed statistics of each genre:
+```{r}
+library(openintro)
+library(dbplyr)
+table <- count(songs_info, playlist_genre)
+table
+ggplot(table, aes(x = n, y = fct_reorder(playlist_genre, n))) + geom_point(color = "blue") +
+  theme_linedraw() 
+```
+From the Cleveland dot plot, we can see that edm genre has the most data, while rap and pop are the second and third popular ones. 
+
+we can also plot a box-whisker plot for every feature against each genre:
+```{r}
+p1 <- songs_info %>% ggplot(aes(x = playlist_genre, y = valence)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'Happiness' )
+
+#Energy
+
+p2 <- songs_info %>% ggplot(aes(x = playlist_genre, y = energy)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'energy' )
+
+#Danceability
+p3 <- songs_info %>% ggplot(aes(x = playlist_genre, y = danceability)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'danceability' )
+
+#Tempo
+p4 <- songs_info %>% ggplot(aes(x = playlist_genre, y = tempo)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'tempo' )
+
+p5 <- songs_info %>% ggplot(aes(x = playlist_genre, y = loudness)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'loudness' )
+
+p6 <- songs_info %>% ggplot(aes(x = playlist_genre, y = speechiness)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'speechiness' )
+
+p7 <- songs_info %>% ggplot(aes(x = playlist_genre, y = instrumentalness)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'instrumentalness' )
+
+p8 <- songs_info %>% ggplot(aes(x = playlist_genre, y = liveness)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'liveness' )
+
+p9 <- songs_info %>% ggplot(aes(x = playlist_genre, y = duration_ms)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'duration_ms' )
+
+p10 <- songs_info %>% ggplot(aes(x = playlist_genre, y = acousticness)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(x= 'Genres', y = 'acousticness' )
+
+ggarrange(p1,p2,p3,p4,p5,p6,p7,p8,p9,  nrow = 3, ncol = 4)
+```
+
+
+
+# Correlation
+In order to fit a regression model on the dataset, we first need to study the correlation between all features and reduce features dimension. Below is a plot for all features' correlation:
+```{r}
+feature_names <- c(names(songs_info)[0:1], names(songs_info)[3:14])
+  corrplot::corrplot(cor(scale(dplyr::select(songs_info, feature_names))),
+                     method = 'color', 
+                     diag = FALSE, 
+                     addCoef.col = "black",
+                     number.cex = .6,
+                     col = colorRampPalette(colors = c('red','white','green'))(1000),
+                     number.digits = 1.
+                     )
+```
+
+We can see that the correlation between loudness and energy, acousticness and energy are very high, therefore, we can plot relationships between them to understand better:
+
+```{r}
+
+library("ggpubr")
+ggarrange(
+  ggplot(songs_info, aes(energy,loudness)) +
+  geom_point(color = 'red', ) +
+  geom_smooth(),
+  
+  ggplot(songs_info, aes(energy,acousticness)) +
+  geom_point(color = 'red', ) +
+  geom_smooth())
+```
+
+
+# Logistic Regression
+
+From the above plots, we can infer that as loudness increases, energy increases. As acousticness increases, energy decreases. Therefore, we should abandon both loudness and acousticness, while we keep energy as our only remaining feature out of those three, then we can fit our logistic regression model.
+We need to divide the dataset into training and testing dataset:
+```{r}
+#Scaling
+songs_info<- mutate_if(songs_info, is.numeric, scale)
+
+
+set.seed(0)
+id_train <- sample(nrow(songs_info), nrow(songs_info) * 0.80)
+X_train = songs_info[id_train,]
+X_test = songs_info[-id_train,]
+y_train <- songs_info[id_train, 'playlist_genre']
+y_test <- songs_info[-id_train, 'playlist_genre']
+
+```
+
+```{r}
+library(aod)
+library(ramify)
+songs_info$playlist_genre <- factor(songs_info$playlist_genre)
+mylogit <- glm(playlist_genre ~ valence + energy + danceability + tempo + speechiness, data = X_train, family = "binomial")
+y_predict <- predict(mylogit,data=X_train, type = "response")
+y_predict <- argmax(y_predict, row = TRUE)
+mean(ifelse(y_train == y_predict, 1, 0))
+```
