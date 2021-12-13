@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Genre_Feature_Overview</title>
+    <script src="https://d3js.org/d3.v7.js"></script>
+  </head>
+
+  <body>
+   <div style="padding-left: 100px">
+    <h1><b>Genre Feature Overview</h1></b>
+    <h2>Instructions:</h2>
+    <h3>1. The default graph is Pop Genre</h3>
+    <h3>2. To change genre type, click genre button below</h3>
+  </div>
+  
+  <script>
+
+// Create svg and initial bars
+
+  var w = 700;
+  var h = 500;
+  var margin = {top: 25, right: 0, bottom: 25,
+      left: 25};
+  var innerWidth = w - margin.left - margin.right;
+  var innerHeight = h - margin.top - margin.bottom;
+
+  var bardata = [{feature: "acousticness", value: 0.07399127},
+                 {feature: "danceability", value: 0.63930171},
+                 {feature: "energy", value: 0.70102784},
+                 {feature: 'instrumentalness', value: 0.50352103},
+                 {feature: "liveness", value: 0.17079367},
+                 {feature: 'loudness', value: 0.17683319},
+                 {feature: "speechiness", value: 0.78047116},
+                 {feature: "valence", value: 0.05987629}]
+  
+  var genre_list=[pop,edm,latin,rnb,rap,rock];
+  
+  var xScale = d3.scaleBand()
+      .domain(bardata.map(d => d.feature))
+      .range([0, innerWidth])
+      .paddingInner(.1);
+
+  var yScale = d3.scaleLinear()
+      .domain([0,1])
+      .range([innerHeight, 0])
+
+  var xAxis = d3.axisBottom()
+      .scale(xScale);
+
+  var yAxis = d3.axisLeft()
+      .scale(yScale);
+
+// add svg
+
+  var svg = d3.select("body")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+// add background rectangle
+
+  svg.append("rect")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", w)
+      .attr("height", h)
+      .attr("fill", "aliceblue");
+
+// add bars as a group
+
+  var bars = svg.append("g")
+      .attr("id", "plot")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+      .data(bardata);
+
+  bars.enter().append("rect")
+      .attr("x", d => xScale(d.feature))
+      .attr("y", d => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => innerHeight - yScale(d.value))
+      .attr("fill", "lightgreen");
+
+// add axes
+
+  svg.append("g")
+      .attr("class", "xAxis")
+      .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "yAxis")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+      .call(yAxis);
+
+function update(data) {
+
+ var bars = svg.select("g#plot")
+              .selectAll("rect")
+              .data(data)
+
+    bars.enter()
+      .append("rect")    // add new elements
+        .attr("x", d => xScale(d.feature))
+        .attr("y", d => yScale(d.value))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => innerHeight - yScale(d.value))
+        .attr("fill", "lightgreen")
+        .merge(bars)    // merge
+        .transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .attr("x", d => xScale(d.feature))
+        .attr("y", d => yScale(d.value))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => innerHeight - yScale(d.value))
+        .transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .attr("fill", "lightblue");
+
+    bars.exit().remove();    // remove extra elements
+    }
+
+    function pop(){
+      new_data=[{feature: "acousticness", value: 0.07399127},
+                {feature: "danceability", value: 0.63930171},
+                {feature: "energy", value: 0.70102784},
+                {feature: 'instrumentalness', value: 0.50352103},
+                {feature: "liveness", value: 0.17079367},
+                {feature: 'loudness', value: 0.17683319},
+                {feature: "speechiness", value: 0.78047116},
+                {feature: "valence", value: 0.05987629}]
+      update(new_data)
+    }
+
+    function edm(){
+      new_data=[{feature: "acousticness", value: 0.08150360},
+                {feature: "danceability", value: 0.65504087},
+                {feature: "energy", value: 0.80247592},
+                {feature: 'instrumentalness', value: 0.21857790},
+                {feature: "liveness", value: 0.21185868},
+                {feature: 'loudness', value: 0.68294303},
+                {feature: "speechiness", value: 0.08669548},
+                {feature: "valence", value: 0.40065552}]
+      update(new_data)
+    }
+    
+    function latin(){
+      new_data=[{feature: "acousticness", value: 0.21092045},
+                {feature: "danceability", value: 0.71328726},
+                {feature: "energy", value: 0.70831247},
+                {feature: 'instrumentalness', value: 0.04444698},
+                {feature: "liveness", value: 0.18062568},
+                {feature: 'loudness', value: 0.86598736},
+                {feature: "speechiness", value: 0.10265315},
+                {feature: "valence", value: 0.60551043}]
+      update(new_data)
+    }
+    
+    function rnb(){
+      new_data=[{feature: "acousticness", value:  0.25990375},
+                {feature: "danceability", value: 0.67017934},
+                {feature: "energy", value: 0.59093434},
+                {feature: 'instrumentalness', value: 0.02892033},
+                {feature: "liveness", value: 0.17526765},
+                {feature: 'loudness', value: 0.78148653},
+                {feature: "speechiness", value:  0.11679214},
+                {feature: "valence", value: 0.53123060}]
+      update(new_data)
+    }
+    
+    function rap(){
+      new_data=[{feature: "acousticness", value: 0.1924787},
+                {feature: "danceability", value: 0.7183528},
+                {feature: "energy", value: 0.6507084},
+                {feature: 'instrumentalness', value: 0.0759972},
+                {feature: "liveness", value: 0.1916544},
+                {feature: 'loudness', value: 0.7137968},
+                {feature: "speechiness", value: 0.1975059},
+                {feature: "valence", value: 0.5050900}]
+      update(new_data)
+    }
+    
+    function rock(){
+      new_data=[{feature: "acousticness", value: 0.14518890},
+                {feature: "danceability", value: 0.52054797},
+                {feature: "energy", value: 0.73281327},
+                {feature: 'instrumentalness', value: 0.06241733},
+                {feature: "liveness", value: 0.20313518},
+                {feature: 'loudness', value: 0.67605091},
+                {feature: "speechiness", value: 0.05769568 },
+                {feature: "valence", value: 0.53735205}]
+      update(new_data)
+    }
+    </script>
+    <svg></svg>
+    <p></p>
+    <button type="button" onclick="pop()">pop genre</button>
+    <button type="button" onclick="edm()">edm genre</button>
+    <button type="button" onclick="latin()">latin genre</button>
+    <button type="button" onclick="rnb()">r&b genre</button>
+    <button type="button" onclick="rap()">rap genre</button>
+    <button type="button" onclick="rock()">rock genre</button>
+  </body>
+
+</html>

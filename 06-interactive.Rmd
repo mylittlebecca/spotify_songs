@@ -1,3 +1,31 @@
 # Interactive component
+In this part, we draw two chart to show each genre's feature value. The first chart is Bar Chart, and the second is Radar Chart. 
 
+**Bar Chart**
+1. Link: Click the url:https://rpubs.com/MyLittlePier/846922
 
+2. Description: The first part of our interactive analysis was built with D3 version 7.
+
+3. Instructions: 
+
+The default graph is Pop Genre; 
+To change genre type, click genre button below
+
+(The code is uploaded to https://jsfiddle.net/2o17fs9q/2/)
+
+**Radar Chart**
+1. Link: Click the url: https://my-little-pier.glitch.me
+
+2. Description: The second part of our interactive analysis was built with D3 version 3.
+
+3. Intructions:
+
+This radar chart shows the six genres--rock,latin,pop,r&b,edm,and rap--with their corresponding features. Here, we choose five main features which are valence, loudness, instrumentaless, energy,and danceability. 
+
+Note: The number displayed on the chart was in %, and we took the absolute value of loudness and multiplied them by 0.1 to make all number range be similar.
+
+As users move to any of the six regions on the chart, users can see the corresponding  genre's feature.
+
+(The code is uploaded to https://glitch.com/edit/#!/my-little-pier)
+
+We also uploaded our code to github.

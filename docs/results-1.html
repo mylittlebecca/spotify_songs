@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Results | Spotify Songs</title>
+  <meta name="description" content="Chapter 6 Results | Spotify Songs" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Results | Spotify Songs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Results | Spotify Songs" />
+  
+  
+  
+
+<meta name="author" content="Junhao Zhang, Wei Luo, Yihan Wang" />
+
+
+<meta name="date" content="2021-12-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="results.html"/>
+<link rel="next" href="interactive-component.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/proj4js-2.3.15/proj4.js"></script>
+<link href="libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="libs/highchart-binding-0.8.2/highchart.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ss</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#spotify-songs-of-2020"><i class="fa fa-check"></i><b>2.1</b> Spotify Songs of 2020</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="6" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>6</b> Results</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="results-1.html"><a href="results-1.html#statistics-of-genres"><i class="fa fa-check"></i><b>6.1</b> Statistics of Genres</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="results-1.html"><a href="results-1.html#general-overview-of-genres"><i class="fa fa-check"></i><b>6.1.1</b> General Overview of Genres</a></li>
+<li class="chapter" data-level="6.1.2" data-path="results-1.html"><a href="results-1.html#density-curve-of-each-genre"><i class="fa fa-check"></i><b>6.1.2</b> Density curve of each genre</a></li>
+<li class="chapter" data-level="6.1.3" data-path="results-1.html"><a href="results-1.html#history-and-boxplot-for-genres"><i class="fa fa-check"></i><b>6.1.3</b> History and Boxplot For Genres</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="results-1.html"><a href="results-1.html#correlation"><i class="fa fa-check"></i><b>6.2</b> Correlation</a></li>
+<li class="chapter" data-level="6.3" data-path="results-1.html"><a href="results-1.html#distribution-of-genre"><i class="fa fa-check"></i><b>6.3</b> Distribution of Genre</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="results-1.html"><a href="results-1.html#overall-distribution-of-features"><i class="fa fa-check"></i><b>6.3.1</b> Overall Distribution of Features</a></li>
+<li class="chapter" data-level="6.3.2" data-path="results-1.html"><a href="results-1.html#qq-plot"><i class="fa fa-check"></i><b>6.3.2</b> QQ plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Spotify Songs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="results-1" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Results</h1>
+<p>In this section, we are going to focus on the relationship among genre vs music features vs popularity. More specifically, we will be exploring how music genres differ in characteristics, discovering what music features (individual or combined) will positively or negatively affect the popularity and figuring out if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions.</p>
+<div id="statistics-of-genres" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Statistics of Genres</h2>
+<div id="general-overview-of-genres" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> General Overview of Genres</h3>
+<p>First, we can get some statistics of each genre of songs:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">playlist_genre</th>
+<th align="right">genre_total</th>
+<th align="right">average_popularity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">edm</td>
+<td align="right">6043</td>
+<td align="right">34.83353</td>
+</tr>
+<tr class="even">
+<td align="left">rap</td>
+<td align="right">5746</td>
+<td align="right">43.21545</td>
+</tr>
+<tr class="odd">
+<td align="left">pop</td>
+<td align="right">5507</td>
+<td align="right">47.74487</td>
+</tr>
+<tr class="even">
+<td align="left">r&amp;b</td>
+<td align="right">5431</td>
+<td align="right">41.22353</td>
+</tr>
+<tr class="odd">
+<td align="left">latin</td>
+<td align="right">5155</td>
+<td align="right">47.02658</td>
+</tr>
+<tr class="even">
+<td align="left">rock</td>
+<td align="right">4951</td>
+<td align="right">41.72834</td>
+</tr>
+</tbody>
+</table>
+<div id="htmlwidget-17ddc5bca8cc16723d9d" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17ddc5bca8cc16723d9d">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"number of songs in each genre"},"yAxis":{"title":{"text":"genre_total"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"edm","data":[{"playlist_genre":"edm","genre_total":6043,"average_popularity":34.8335263941751,"y":6043,"name":"edm"}],"type":"column"},{"name":"latin","data":[{"playlist_genre":"latin","genre_total":5155,"average_popularity":47.0265761396702,"y":5155,"name":"latin"}],"type":"column"},{"name":"pop","data":[{"playlist_genre":"pop","genre_total":5507,"average_popularity":47.7448701652442,"y":5507,"name":"pop"}],"type":"column"},{"name":"r&b","data":[{"playlist_genre":"r&b","genre_total":5431,"average_popularity":41.2235315779783,"y":5431,"name":"r&b"}],"type":"column"},{"name":"rap","data":[{"playlist_genre":"rap","genre_total":5746,"average_popularity":43.2154542290289,"y":5746,"name":"rap"}],"type":"column"},{"name":"rock","data":[{"playlist_genre":"rock","genre_total":4951,"average_popularity":41.7283377095536,"y":4951,"name":"rock"}],"type":"column"}],"xAxis":{"type":"category","title":{"text":"playlist_genre"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ce241c334c68494c143b" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ce241c334c68494c143b">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"number of songs in each genre"},"yAxis":{"title":{"text":"genre_total"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"playlist_genre":"edm","genre_total":6043,"average_popularity":34.8335263941751,"y":6043,"name":"edm"},{"playlist_genre":"rap","genre_total":5746,"average_popularity":43.2154542290289,"y":5746,"name":"rap"},{"playlist_genre":"pop","genre_total":5507,"average_popularity":47.7448701652442,"y":5507,"name":"pop"},{"playlist_genre":"r&b","genre_total":5431,"average_popularity":41.2235315779783,"y":5431,"name":"r&b"},{"playlist_genre":"latin","genre_total":5155,"average_popularity":47.0265761396702,"y":5155,"name":"latin"},{"playlist_genre":"rock","genre_total":4951,"average_popularity":41.7283377095536,"y":4951,"name":"rock"}],"type":"scatter"}],"xAxis":{"type":"category","title":{"text":"playlist_genre"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bda55faa5da4495ec47a" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bda55faa5da4495ec47a">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"average popularity of each genre"},"yAxis":{"title":{"text":"average_popularity"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"playlist_genre":"pop","genre_total":5507,"average_popularity":47.7448701652442,"y":47.7448701652442,"name":"pop"},{"playlist_genre":"latin","genre_total":5155,"average_popularity":47.0265761396702,"y":47.0265761396702,"name":"latin"},{"playlist_genre":"rap","genre_total":5746,"average_popularity":43.2154542290289,"y":43.2154542290289,"name":"rap"},{"playlist_genre":"rock","genre_total":4951,"average_popularity":41.7283377095536,"y":41.7283377095536,"name":"rock"},{"playlist_genre":"r&b","genre_total":5431,"average_popularity":41.2235315779783,"y":41.2235315779783,"name":"r&b"},{"playlist_genre":"edm","genre_total":6043,"average_popularity":34.8335263941751,"y":34.8335263941751,"name":"edm"}],"type":"scatter"}],"xAxis":{"type":"category","title":{"text":"playlist_genre"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p>From the above bar chart and pie chart, we can conclude that every genre has relatively same size of data and no genre is biased meaning that no big differences in the size among six genres, which is great for our later analysis on genre characteristics. From the above Cleveland dot plot of number of genres, we can see that genre <code>edm</code> is has the most data and thus is the most popular genre and the <code>rap</code> and <code>pop</code> genres are the second and the third popular ones. Then we assumed that genre <code>emd</code> will have the highest average popularity (calculated by the sum of popularity of each song divided by the total number of songs in the genre) because it’s the most popular genre. However, we checked the plot of average popularity of each genre, a conflict appears and we noticed that the most popular genre <code>edm</code> has the lowest average popularity among other genres. And other genres have the same situation. i.e. The third popular genre <code>pop</code> has the highest average popularity. Those conflicts imply that number of songs in the genre,which is supposed to represent the popularity of genre, is not equivalent to the popularity of the genre. Even though it gives us some useful information about how popular this genre is, we can’t simply use it to describe the overall popularity of the genre. To understand what really separate songs into different genres and how music features affect genres, we need to more detailed statistics of genres.</p>
+</div>
+<div id="density-curve-of-each-genre" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Density curve of each genre</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="768" />
+<br>
+The above density plot of music features of each genre tells us how each music feature is related to each genre and how relevant that particular feature defines the genre. From the plot, we can see that <code>edm</code> genre is less likely to be acoustic and more likely to have high energy with low valence(negativeness e.g. sad, depressed, angry) and <code>edm</code> have the highest number of songs having medium level tempo(spped or pace of a song). For <code>latin</code> genre, we can see that it’s likely to have high dancebility and high valence(positiveness). For <code>pop</code> genre, we can see that it’s less likely to have songs with longer durations and most of songs in the pop have medium length duration. For <code>r&amp;b</code> genre, it scores low on liveness and has medium level valence and high durantion of songs. <code>rap</code> genre scores high on dancebility, duration and speechiness which is obvious and it matches our understanding toward rap songs because rap songs tend to have more spoken words than others. And for <code>rock</code> genre, we can see that it has high value on liveness which means that it’s more likely to be recorded and low on dancebility which also matches our general understanding toward rock songs because most them are less likely to be danceable. For features like duration_ms, key, mode and tempo are not providing good insight of separting the genres, so we will focus on the rest eight features and explore them in more depth. <br></p>
+</div>
+<div id="history-and-boxplot-for-genres" class="section level3" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> History and Boxplot For Genres</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="1152" />
+<br>
+From the histogram, we can tell that features are different in genres, but the differneces among features in each genre are not big enough for us to come up with an conclusion, so we need to create other plots to help up analyze those eight features and we chose to plot a box-whisker plot for the rest eight features against each genre:
+<img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="960" />
+Combined the density plot, histogram and the boxplot, we can conclude the following for the eight features:<br>
+<strong>Valence: </strong>
+It can provide us a good separation between <code>edm</code> and other genres because there is considerable differences between the median values and ranges, while other genres have similar valence and <code>latin</code> has the highest valence than others.<br>
+<strong>Energy: </strong>
+It has similar median value and range for genre <code>latin</code> and <code>pop</code> which means it’s not a really good separation for these two genres while the remaning four have large differences on energy.<br>
+<strong>Dancibility: </strong>
+It can provide a good separation between <code>rock</code> and other genres because rock has the lowest median and range value on dancibility, while other genres have similar median and range values and <code>rap</code> has the highest score on dancibility.<br>
+<strong>Instrumentalness: </strong>
+It provides a clear separation between <code>edm</code> and other genres because it’s the only genre with range and it has the highes score on it.<br>
+<strong>Loudness: </strong>
+All genres have similar values in loudness which means that loudness is common in all six genres and thus loudness is not considered as a good separation.<br>
+<strong>Speechiness: </strong>
+It can provide a good sepration between <code>rap</code> and other genres since there is considerable differneces between the median and range values. If we only consider the range in boxplot, since the there is also big differences in range, it can also be a good separation.<br>
+<strong>Liveness: </strong>
+The median value of each genre are almost the same and the differneces among the ranges are not large enough to be a good separation.<br>
+<strong>Acousticness: </strong>
+It can provide a good separation for all six genres because the there are considerable differnces between median values and the range. <code>R&amp;b</code> genre has the highest value on acousticness.</p>
+</div>
+</div>
+<div id="correlation" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Correlation</h2>
+<p>Now, we want to explore how these features correlate with one another and if there is any redundancy in correlation between those features.
+<img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<br>
+1. From the above graph, we can see that energy and loudness are fairly highly correlated (0.68) and energy and acousticness are negatively correlated(-0.54), which makes sense because the more energy the music has, the less acousticness the music will need.<br>
+2. There is also a negative relationship(-0.36) between loudness and acousticness and this also makes sense because the louder the music is, the less acoustic the music will be. <br>
+3. Also, there is a positive correlation between danceability and valence since happier songs lead to more dancing. <br>
+4. Liveness, tempo, and energy are clustered together, as are speechiness and danceability. <br>
+5. Another tnteresting discovery is that the danceability is negatively correlated with tempo and energy because in reality, people are more likely to dance if the energy is high or if the temp is fast.<br>
+<br>
+Now, we want to further explore the positive correlation between energy and loundness and the negative relationship between engery and acousticness from the previous findings.
+<img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<br>
+As we can see from the two graphs, there is a strong positive correlation between energy and loudness and blue fitting line is linear. As energy increases, the loudness also increases. For the relationship between energy and acousticness, even though the blue fitting line is not very linear, we can still observe a negative correlation that as energy increases, the acousticness decreases.<br></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<br>
+The correlation graph points out a negative relationship (-0.36) and from the above graph, we can see a clear negative correlation between loudness and acousticness because the blue fitting line is linear and it fits the points. This correlation makes sense because in reality, if the acousticeness gets louder, it wll be harder to hear the songs and the loudness will decrease.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<br>
+From the above graph, we can see a clear positve correlation between danceability and valence because the blue fitting lines is linear and it fits almost all points. As danceability increases, the valence increases. This makes sense because the more happier the song is, the more dancing there will be.<br>
+In th previous step, we explored the correlation among different features and now we want to explore correlation among genres and we will be using the median feature value for each genre.
+<img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+From the graph, we can see that <code>rap</code> have positive relationship with <code>latin</code> and <code>r&amp;b</code> and have negative correlation with the rest genres.
+<code>latin</code> has positve relationship with <code>r&amp;b</code> and negative correlation with the rest genres. <code>r%b</code> has negative correlation with <code>rock</code>, <code>edm</code> and <code>pop</code>. <code>rock</code> has positive relationship with <code>edm</code> and <code>pop</code> and <code>edm</code> has postive correlation with <code>pop</code></p>
+</div>
+<div id="distribution-of-genre" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Distribution of Genre</h2>
+<div id="overall-distribution-of-features" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Overall Distribution of Features</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<br>
+From the histograms, we can observe the following:<br>
+1.Songs with duration of 2.5 to 4 minutes have majority listeners.<br>
+2.More than 80% of data have a value no larger than 0.1 in instrumentalness <br>
+3.Energy and Danceability are approximately normally distribuited and Valence is normally distributed <br>
+4. Most of the songs have a loudness level between -5dB and -10db <br>
+5. Majority songs have speechiness less than 0.25 indicating that more speechy songs aren’t favoured.<br>
+6. Most songs have liveness less than 0.25 which means that those songs are not recoreded.<br>
+7. The mode looks like a bimodal distribution and there are only value 0 and value 1.
+8. The key feature are separated approximately evenly amont all songs. <br></p>
+</div>
+<div id="qq-plot" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> QQ plot</h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-2.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-3.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-4.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-5.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-6.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-7.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-24-8.png" width="672" />
+From QQ plot, we can tell that danceability and tempo follows normal distribution, while others deviate from normal distribution.<br></p>
+<p>Valence: It is the only feature without many outliers. Latin’s mean and percentiles are higher than all other genre. Edm’s mean and percentiles is lowest, while all others remain similar to each other.<br></p>
+<p>Energy: edm has the highest energy and rock might have the highest variance probably. r&amp;b has the lowest energy, which is expected.<br></p>
+<p>Danceability: rock has the lowest mean danceability, while other genre are on the same level. There are a lot of low outliers for all genre.<br></p>
+<p>loudness: as the loudness for nearly all the genre are looking similar, and variance of the loudness seems low, and there are lots of low outliers for each genre.<br></p>
+<p>speechiness: among all the genre, rap’s speechiness is the highest. and speechiness for r&amp;b and latin are similar, while all others remains every low speechiness.<br></p>
+<p>Accoustcness: since it can provide a good separation for all six genres because the there are considerable differnces between median values and the range. <code>R&amp;b</code> genre has the highest value on acousticness from the previous box <br></p>
+<p>Instrumentalness: It’s not normally distributed because it provides a clear separation between <code>edm</code> and other genres because it’s the only genre with range and it has the highes score on it from the boxplot.<br></p>
+<p>Liveness: The median value of each genre are almost the same and the differneces among the ranges are not large enough to be a good separation.<br></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interactive-component.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/SchizoidMann/spotify_songs/edit/main/05-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/SchizoidMann/spotify_songsE/blob/main/05-results.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
