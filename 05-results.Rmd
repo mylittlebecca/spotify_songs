@@ -254,6 +254,7 @@ p6 <- qqPlot(songs_info$loudness)
 p7 <- qqPlot(songs_info$valence)
 p8 <- qqPlot(songs_info$speechiness)
 ```
+
 <br>
 From QQ plot, we can tell that danceability and tempo follows normal distribution, while others deviate from normal distribution.<br>
 

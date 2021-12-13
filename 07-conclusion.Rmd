@@ -1,2 +1,15 @@
 # Conclusion
 
+<br>
+
+In conclusion, different genre of songs indeed have different music features. In our results, we noted that genre mainly differs in valence, energy, danceability, loudness, speechiness, accoustcness, instrumentalness and liveness. Also, we are able to answer the three questions raised at the beginning at this moment:
+<br>
+- Edm differs from other genre in the aspect of considerably low valence and high instrumentalness; Rock differs from other genre in the aspect of low dancibility; Rap differs from other genre as it is extremely high in speechiness. While the other three genre seems similar and not seperable from our research.
+- People likes songs with duration 2.5-4 minutes, while they do not like songs with speechiness larger than 0.25
+- There is a strong positive correlation between energy and loudness, positve correlation between daceability and valence, negative correlation between loudness and acousticness, and strong negative correlation between acousticness and energy. 
+<br>
+<br>
+
+## Limitations and Future Work
+
+As in our result, we cannot find very strong indicators for r&b, pop and latin, in the future we will include more features and trying to find ways to split these three music genre. Moreover, our dataset does not include geological information about songs, which will affect the songs' popularity. In the future, if geological information is included, we will generate heat maps for different genre of songs and analyze the influences of geological location on popularity of different genre.
