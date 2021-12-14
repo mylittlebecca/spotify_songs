@@ -28,4 +28,4 @@ As users move to any of the six regions on the chart, users can see the correspo
 
 (The code is uploaded to https://glitch.com/edit/#!/my-little-pier)
 
-We also uploaded our code to github.
+We also uploaded our code to github:https://github.com/SchizoidMann/spotify_songs/tree/main/interactive

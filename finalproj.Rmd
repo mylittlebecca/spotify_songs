@@ -1,0 +1,678 @@
+--- 
+title: "Spotify Songs"
+author: "Junhao Zhang, Wei Luo, Yihan Wang"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Introduction
+
+<br>
+A song is a musical composition intended to be performed by the human voice. This is often done at distinct and fixed pitches (melodies) using patterns of sound and silence. Songs contain various forms, such as those including the repetition and variation of sections. Music can also stimulate the mind. There are many things in music, to which one can listen and bring attention. One can be mindful of the melodies or themes, the harmony, the driving or relaxed rhythms, the color of the sounds, the activity of a piece, how the sounds are produced, or how they all relate to one another, all while, possibly figuring out how the composer conceived the piece. Focused and attentive listening is an incredible experience that allows one to be lost in a foreign sound world. Spotify, one of the most popular audio streaming and media services provider in the world, gives customers access to millions of songs and other content from creators all over the world.
+<br>
+<br>
+In this project, we collected a set of songs from spofity with detailed information of each song to generate visualizations and conduct investigations on the relationships between popularity and music characteristics. We would like to carry out analysis and answer the following questions: <br>
+- Given various of song features, we want to discover how music genres differ in characteristics. <br>
+- Given a set of songs, we want to explore what features (individual or combined) will positively or negatively affect the popularity and people’s preferences. <br>
+- Given any specific songs, we want to find if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions. <br>
+
+In the following chapters, we will discuss these questions and provide some new insights on the mucic characteristics. <br>
+
+For more details of this project, click [the link here](https://github.com/SchizoidMann/spotify_songs.git) or copy the url https://github.com/SchizoidMann/spotify_songs.git and open it in browser to go to our Github repository and navigate code in `.Rmd` files.
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data sources
+
+## Spotify Songs of 2020
+**Dataset : spofity_songs.csv** <br>
+
+The primary dataset of this project comes from Spotify via the [*spotifyr *](https://www.rcharlie.com/spotifyr/)package. It contains the detailed information of thousand of spofity songs.
+
+```{r,echo=FALSE,results='asis',message=FALSE,warning=FALSE}
+library(tidyverse)
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
+song_tbl <- data.frame(
+  variables=colnames(spotify_songs),
+  class=c(
+    "character",
+    "character",
+    "character",
+    "double",
+    "character",
+    "character",
+    "character",
+    "character",
+    "character",
+    "character",
+    "character",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double",
+    "double"
+  ),
+  description=c(
+    "Song unique ID",
+    "Song Name",
+    "Song Artist",
+    "Song Popularity (0-100) where higher is better",
+    "Album unique ID",
+    "Song album name",
+    "Date when album released",
+    "Name of playlist",
+    "Playlist ID",
+    "Playlist genre",
+    "Playlist subgenre",
+    "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable",
+    "Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy",
+    "The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g.0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1",
+    "The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db",
+    "Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0",
+    "Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks",
+    "A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic",
+    "Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0",
+    "Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live",
+    "A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)",
+    "The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration",
+    "Duration of song in milliseconds"
+  )
+)
+knitr::kable(song_tbl,caption = "Column Description")
+```
+**Issues with this dataset: **
+
+1. The information gathered in this dataset is not updated. It only contains information of spotify songs up to January 2020. The track_popularity column is subject to change, but the change will be trivial compared to the size of the entire dataset. Although this will not affect our analysis or overall conclusion, it is worth attention to the data incompleteness here.
+
+only three columns have mising value: track_name, track_artist, track_album_name, not use those columns.
+
+<!--chapter:end:02-data.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data transformation
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+#install.packages('spotifyr')
+library('spotifyr')
+#library(here)
+library(readr)
+library(tidyverse)
+library(socviz)
+library(dplyr)
+library('tidytuesdayR')
+```
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
+#tuesdata <- tidytuesdayR::tt_load('2020-01-21') 
+#tuesdata <- tidytuesdayR::tt_load(2020, week = 4)
+#spotify_songs <- tuesdata$spotify_songs
+```
+There are 12 audio features, we categorize those variables into 3 types:<br>
+confidence features: `acousticness`, `liveness`, `speechiness` and `instrumentalness `<br>
+perceptual features: `energy`, `loudness`, `danceability` and `valence` (positiveness) <br>
+descriptive features: `duration`, `tempo`, `key`, and` mode`.<br>
+<br>
+The analysis focus on the relationship among genre vs perceptual features vs popularity, so we will be mainly focusing on the popularity, genre and perceptual features and we cleaned this dataset in following steps:
+- Select columns we needed. i.e. `track_popularity`, `playlist_genre`, track`energy`, `loudness`, `danceability` and `valence`
+- Check duplicates and fix typos
+<br>
+After clearning it, it now has 32833 rows and 14 columns.<br>
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+songs_info <- spotify_songs %>%
+  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
+songs_info
+```
+Then, we created a new dataframe summarizing the information of genre for the purpose of analysis in later chapter.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+songs_info %>%
+  group_by(playlist_genre) %>%
+  summarise(genre_total=n(),average_popularity=sum(track_popularity)/genre_total) %>%
+  knitr::kable()
+
+songs_info %>% ggplot(aes(x=fct_infreq(playlist_genre),fill=playlist_genre)) + geom_bar(width=0.3)+labs(title = 'Genre Counts',x='Genre',y='#of tracks')
+```
+
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Missing values
+```{r setup, include=FALSE}
+# this prevents package loading message from appearing in the rendered version of your problem set
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,
+                      echo = TRUE)
+library(tidyverse)
+library(patchwork)
+library(openintro)
+```
+We have found that our final data set has missing values in only few rows which is not really useful. We decided to omit them and use the ucla_textbooks_f18 data set in openintro package.
+```{r,fig.width=12,fig.height=12,message=FALSE,echo=FALSE,warning=FALSE}
+missing_value_plot<-function(data,type='counts'){
+  # find and count the missing patterns
+  missing_patterns <- data.frame(is.na(data)) %>%
+    group_by_all() %>%
+    count(name = "count", sort = TRUE) %>%
+    ungroup()
+  
+  # add id to each row
+  missing_patterns <- missing_patterns %>% 
+    mutate(id=row_number(),.before=1)
+  
+  # tidy the missing patterns
+  new_missing_patterns <- missing_patterns %>%
+    mutate_if(is.logical, as.character)
+    #mutate_all(funs(as.character(.)))
+  for (i in 1:nrow(new_missing_patterns)) {
+    flag <-0
+    for (j in 2:ncol(new_missing_patterns)) {
+      if (new_missing_patterns[i,j]=='TRUE') {
+        flag <- 1
+      } 
+    }
+    if (flag==0) {
+      new_missing_patterns[i,2:(ncol(new_missing_patterns)-1)] <-'complete'
+    }
+  }
+  tidypatterns <- new_missing_patterns %>%
+    select(-count) %>%
+    pivot_longer(cols=!id,names_to ='key',values_to='value')
+  
+  # Plot the main graph
+  column_sum <- colSums(is.na(data))
+  variable_order <- names(sort(column_sum,decreasing = TRUE))
+  variable <- fct_relevel(tidypatterns$key,variable_order)
+  main <- ggplot(tidypatterns,aes(x=variable,y=fct_rev(factor(id)),fill=value))+
+    geom_tile(color = "white")+
+    scale_fill_manual(values = c('TRUE'='darkorchid1','FALSE'='grey','complete'='darkgrey'))+
+    theme(legend.position = "none")+
+    labs(x='variable',y='missing pattern')
+  
+  # add text
+  complete_loc <- tidypatterns$id[which(tidypatterns$value=='complete')]
+  x <- as.integer(ncol(data)/2)+1
+  for (i in complete_loc) {
+    y <- nrow(missing_patterns)-i+1
+    main <- main+geom_text(aes(x=x,y=y,label='complete case'),size=4,family="Times New Roman",fontface='bold')
+  }
+  
+  if (type=='counts'){
+    # plot the top graph
+    column_count<-data %>% 
+          summarise_all(~ sum(is.na(.x))) %>%
+          pivot_longer(cols=everything(), names_to="variable", values_to="count") %>% 
+          arrange(desc(count))
+    top <- ggplot(column_count,aes(x=factor(variable, levels=column_count$variable), y=count))+
+      geom_col(fill='lightblue')+
+      labs(x='',y='num rows missing:')+
+      ggtitle('Missing Value Patterns with counts')
+    
+    # plot the right graph
+    row_count <-new_missing_patterns %>%
+      add_column(status='missing')
+    for (i in 1:nrow(row_count)) {
+      if (any(row_count[i,]=='complete')){
+        row_count[i,'status']<-'complete'
+      }
+    }
+    right <- ggplot(row_count,aes(x=count,y=fct_rev(factor(id)),fill=status))+
+      geom_col()+
+      scale_fill_manual(values=c('blue','lightblue'))+
+      theme(legend.position = "none")+
+      labs(x='row count',y='')
+  }
+  else if (type=='percents'){
+    # plot the top graph
+    column_count <- data %>%
+      summarise_all(~ 100*sum(is.na(.x))/nrow(data)) %>% 
+      pivot_longer(cols=everything(), names_to="variable", values_to="count") %>% 
+      arrange(desc(count))
+    top <- ggplot(column_count,aes(x=factor(variable, levels=column_count$variable), y=count))+
+      geom_col(fill='lightblue')+
+      scale_y_continuous(limits=c(0,100),breaks=seq(0,100,by=25))+
+      labs(x='',y='% rows missing:')+
+      ggtitle('Missing Value Patterns with percents')
+    
+    # plot the right graph
+    row_count <-new_missing_patterns %>%
+      add_column(status='missing') %>%
+      mutate(count=100*(count/nrow(data))) %>%
+      arrange(desc(count))
+    for (i in 1:nrow(row_count)) {
+      if (any(row_count[i,]=='complete')){
+        row_count[i,'status']<-'complete'
+      }
+    }
+    right <- ggplot(row_count,aes(x=count,y=fct_rev(factor(id)),fill=status))+
+      geom_col()+
+      scale_fill_manual(values=c('blue','lightblue'))+
+      scale_x_continuous(limits=c(0,100),breaks=seq(0,100,by=25))+
+      theme(legend.position = "none")+
+      labs(x='% rows',y='')
+  }
+  else (print('Wrong Type Input'))
+  
+  top + plot_spacer() + main + right + 
+    plot_layout(
+      ncol = 2, 
+      nrow = 2, 
+      widths = c(4, 1),
+      heights = c(1, 4)
+    )
+}
+missing_value_plot(openintro::ucla_textbooks_f18,type='counts')
+missing_value_plot(openintro::ucla_textbooks_f18,type='percents')
+```
+According to the plot above, we can tell that there are 20 missing patterns and the fifth missing pattern is a complete case. The fisrt missing patterns has the highest row count. It seems that there is correlation between the price of new books and used books both in amazon and in bookstore because they all have really high missing values compared with other variables. Also, it's quiet strange that there are so many missing values in book price variables. Regarding of book features,textbook_isbn is more likely to be missing than any other book features except price because book isbn is long and complicated and people normally won't use isbn much when they buy books. There are three columns, year,term and subject doesn't have missing values. One interesting observation is that there are no missing values in subject, but there are missing values in Subject abbreviation which means that some book are not used for one specific subject but for multiple subjects and that's why the subject abbr is missing because it doesn't know how to fill in the subject abbreviation.
+
+<!--chapter:end:04-missing.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Results
+<<<<<<< HEAD
+=======
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
+songs_info <- spotify_songs %>%
+  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
+
+```
+
+# Results
+>>>>>>> 8c0a350 (result and interactive)
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(readr)
+library(tidyverse)
+library(socviz)
+library(dplyr)
+library("ggpubr")
+library(openintro)
+library(dbplyr)
+library(car)
+library(highcharter)
+library(funModeling)
+<<<<<<< HEAD
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
+songs_info <- spotify_songs %>%
+  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
+=======
+>>>>>>> 8c0a350 (result and interactive)
+```
+In this section, we are going to focus on the relationship among genre vs music features vs popularity. More specifically, we will be exploring how music genres differ in characteristics, discovering what music features (individual or combined) will positively or negatively affect the popularity and figuring out if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions.
+
+## Statistics of Genres
+
+### General Overview of Genres
+First, we can get some statistics of each genre of songs:
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+genre_info <- songs_info%>%
+  group_by(playlist_genre) %>%
+  summarise(genre_total=n(),average_popularity=sum(track_popularity)/genre_total)%>%
+  arrange(desc(genre_total))
+
+genre_info %>%
+  knitr::kable()
+
+genre_info %>%
+  hchart('column',hcaes(x=playlist_genre,y=genre_total,group=playlist_genre)) %>%
+   hc_title(text = 'number of songs in each genre')
+
+genre_info %>%
+  hchart('scatter', hcaes(x=playlist_genre,y=genre_total)) %>%
+  hc_title(text = 'number of songs in each genre')
+
+genre_info %>%
+  arrange(desc(average_popularity)) %>%
+  hchart('scatter', hcaes(x=playlist_genre,y=average_popularity)) %>%
+  hc_title(text = 'average popularity of each genre')
+
+```
+From the above bar chart and pie chart, we can conclude that every genre has relatively same size of data and no genre is biased meaning that no big differences in the size among six genres, which is great for our later analysis on genre characteristics. From the above Cleveland dot plot of number of genres, we can see that genre `edm` is has the most data and thus is the most popular genre and the `rap` and `pop` genres are the second and the third popular ones. Then we assumed that genre `emd` will have the highest average popularity (calculated by the sum of popularity of each song divided by the total number of songs in the genre) because it's the most popular genre. However, we checked the plot of average popularity of each genre, a conflict appears and we noticed that the most popular genre `edm` has the lowest average popularity among other genres. And other genres have the same situation. i.e. The third popular genre `pop` has the highest average popularity. Those conflicts imply that number of songs in the genre,which is supposed to represent the popularity of genre, is not equivalent to the popularity of the genre. Even though it gives us some useful information about how popular this genre is, we can't simply use it to describe the overall popularity of the genre. To understand what really separate songs into different genres and how music features affect genres, we need to more detailed statistics of genres.
+
+### Density curve of each genre
+```{r,fig.width=8,fig.height=8,echo=FALSE,message=FALSE,warning=FALSE}
+feature_name <- names(songs_info)[3:14]
+songs_info %>%
+  select(c('playlist_genre', feature_name)) %>%
+  pivot_longer(cols = feature_name) %>%
+  ggplot(aes(x=value))+
+  geom_density(aes(color = playlist_genre))+
+  facet_wrap(~name, ncol = 3, scales = 'free')+
+  labs(title = 'Music Feature Density - by Genre', y = 'density')
+```
+<br>
+The above density plot of music features of each genre tells us how each music feature is related to each genre and how relevant that particular feature defines the genre. From the plot, we can see that `edm` genre is less likely to be acoustic and more likely to have high energy with low valence(negativeness e.g. sad, depressed, angry) and `edm ` have the highest number of songs having medium level tempo(spped or pace of a song). For `latin` genre, we can see that it's likely to have high dancebility and high valence(positiveness). For `pop` genre, we can see that it's less likely to have songs with longer durations and most of songs in the pop have medium length duration. For `r&b` genre, it scores low on liveness and has medium level valence and high durantion of songs. `rap` genre scores high on dancebility, duration and speechiness which is obvious and it matches our understanding toward rap songs because rap songs tend to have more spoken words than others. And for `rock` genre, we can see that it has high value on liveness which means that it's more likely to be recorded and low on dancebility which also matches our general understanding toward rock songs because most them are less likely to be danceable. For features like duration_ms, key, mode and tempo are not providing good insight of separting the genres, so we will focus on the rest eight features and explore them in more depth. <br>
+
+### History and Boxplot For Genres
+<<<<<<< HEAD
+```{r,fig.width=14,fig.height=14,echo=FALSE,message=FALSE,warning=FALSE}
+=======
+```{r,fig.width=12,fig.height=12,echo=FALSE,message=FALSE,warning=FALSE}
+>>>>>>> 8c0a350 (result and interactive)
+feature_plot <- function(data,genre){
+  genre_info <- data %>%
+  filter(playlist_genre==genre) %>%
+  select(-playlist_genre)
+  #genre_info$loudness <- -1*genre_info$loudness
+  genre_info$loudness <- scales::rescale(genre_info$loudness,to=c(0,1))
+  genre_info <-as.data.frame(colSums(genre_info)/dim(genre_info)[1])
+  genre_info <-genre_info %>%
+  rename("feature_average"="colSums(genre_info)/dim(genre_info)[1]") %>%
+  rownames_to_column(var = "feature") %>%
+  filter(feature %in% c("danceability", "energy","speechiness",
+                        "acousticness","instrumentalness","valence","loudness","liveness"))
+  ggplot(genre_info,aes(feature,feature_average))+
+    geom_col(color='blue',fill='lightblue')+
+    ggtitle(paste(genre, "feature overview", sep=" "))+
+    scale_y_continuous(limits = c(0,1))
+}
+a <-feature_plot(songs_info,'pop')
+b <-feature_plot(songs_info,'rap')
+c <- feature_plot(songs_info,'rock')
+d <-feature_plot(songs_info,'latin')
+e <-feature_plot(songs_info,'r&b')
+g <-feature_plot(songs_info,'edm')
+ggarrange(a,b,c,d,e,g,nrow=3,ncol=2)
+```
+<br>
+From the histogram, we can tell that features are different in genres, but the differneces among features in each genre are not big enough for us to come up with an conclusion, so we need to create other plots to help up analyze those eight features and we chose to plot a box-whisker plot for the rest eight features against each genre:
+```{r,fig.width=10,fig.height=10,echo=FALSE,message=FALSE,warning=FALSE}
+p8 <- songs_info %>% ggplot(aes(x = playlist_genre, y = valence,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='valence',x= 'Genres', y = 'valence' )
+p3 <- songs_info %>% ggplot(aes(x = playlist_genre, y = energy,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='energy',x= 'Genres', y = 'energy' )
+p2 <- songs_info %>% ggplot(aes(x = playlist_genre, y = danceability,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='danceability',x= 'Genres', y = 'danceability' )
+p4 <- songs_info %>% ggplot(aes(x = playlist_genre, y = instrumentalness,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='instrumentalness',x= 'Genres', y = 'instrumentalness' )
+p6 <- songs_info %>% ggplot(aes(x = playlist_genre, y = loudness,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='loudness',x= 'Genres', y = 'loudness' )
+p7 <- songs_info %>% ggplot(aes(x = playlist_genre, y = speechiness,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='speechiness',x= 'Genres', y = 'speechiness' )
+p5 <- songs_info %>% ggplot(aes(x = playlist_genre, y = liveness,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='liveness',x= 'Genres', y = 'liveness' )
+p1 <- songs_info %>% ggplot(aes(x = playlist_genre, y = acousticness,color = playlist_genre)) +
+  geom_boxplot(alpha = 0.7) +
+  theme_bw() +
+  labs(title='acousticness',x= 'Genres', y = 'acousticness' )
+ggarrange(p1,p2,p3,p4,p5,p6,p7,p8)
+
+```
+Combined the density plot, histogram and the boxplot, we can conclude the following for the eight features:<br>
+**Valence: ** 
+It can provide us a good separation between `edm` and other genres because there is considerable differences between the median values and ranges, while other genres have similar valence and `latin` has the highest valence than others.<br>
+**Energy: ** 
+It has similar median value and range for genre `latin` and `pop` which means it's not a really good separation for these two genres while the remaning four have large differences on energy.<br>
+**Dancibility: ** 
+It can provide a good separation between `rock` and other genres because rock has the lowest median and range value on dancibility, while other genres have similar median and range values and `rap` has the highest score on dancibility.<br>
+**Instrumentalness: ** 
+It provides a clear separation between `edm` and other genres because it's the only genre with range and it has the highes score on it.<br>
+**Loudness: ** 
+All genres have similar values in loudness which means that loudness is common in all six genres and thus loudness is not considered as a good separation.<br>
+**Speechiness: ** 
+It can provide a good sepration between `rap` and other genres since there is considerable differneces between the median and range values. If we only consider the range in boxplot, since the there is also big differences in range, it can also be a good separation.<br>
+**Liveness: ** 
+The median value of each genre are almost the same and the differneces among the ranges are not large enough to be a good separation.<br>
+**Acousticness: ** 
+It can provide a good separation for all six genres because the there are considerable differnces between median values and the range. `R&b` genre has the highest value on acousticness.
+
+## Correlation
+Now, we want to explore how these features correlate with one another and if there is any redundancy in correlation between those features.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+corrplot::corrplot(cor(scale(dplyr::select(songs_info, feature_name))),
+                     method = 'color', 
+                     order = 'hclust', 
+                     type = 'upper', 
+                     diag = FALSE, 
+                     tl.col = 'black',
+                     addCoef.col = "black",
+                     number.cex = .6,
+                     col = colorRampPalette(colors = c('red','white','green'))(1000))
+```
+<br>
+1. From the above graph, we can see that energy and loudness are fairly highly correlated (0.68) and energy and acousticness are negatively correlated(-0.54), which makes sense because the more energy the music has, the less acousticness the music will need.<br>
+2. There is also a negative relationship(-0.36) between loudness and acousticness and this also makes sense because the louder the music is, the less acoustic the music will be. <br>
+3. Also, there is a positive correlation between danceability and valence since happier songs lead to more dancing. <br> 
+4. Liveness, tempo, and energy are clustered together, as are speechiness and danceability. <br>
+5. Another tnteresting discovery is that the danceability is negatively correlated with tempo and energy because in reality, people are more likely to dance if the energy is high or if the temp is fast.<br>
+<br>
+Now, we want to further explore the positive correlation between energy and loundness and the negative relationship between engery and acousticness from the previous findings.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+ggarrange(
+  ggplot(songs_info, aes(energy,loudness)) +
+  geom_point(color = 'red', ) +
+  geom_smooth(),
+  
+  ggplot(songs_info, aes(energy,acousticness)) +
+  geom_point(color = 'red', ) +
+  geom_smooth())
+```
+<br>
+As we can see from the two graphs, there is a strong positive correlation between energy and loudness and blue fitting line is linear. As energy increases, the loudness also increases. For the relationship between energy and acousticness, even though the blue fitting line is not very linear, we can still observe a negative correlation that as energy increases, the acousticness decreases.<br>
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+ggplot(songs_info,aes(acousticness,loudness))+
+  geom_point(color = 'red', )+
+  geom_smooth()
+```
+<br>
+The correlation graph points out a negative relationship (-0.36) and from the above graph, we can see a clear negative correlation between loudness and acousticness because the blue fitting line is linear and it fits the points. This correlation makes sense because in reality, if the acousticeness gets louder, it wll be harder to hear the songs and the loudness will decrease.
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+ggplot(songs_info,aes(valence,danceability))+
+  geom_point(color = 'red', )+
+  geom_smooth()
+```
+<br>
+From the above graph, we can see a clear positve correlation between danceability and valence because the blue fitting lines is linear and it fits almost all points. As danceability increases, the valence increases. This makes sense because the more happier the song is, the more dancing there will be.<br>
+In th previous step, we explored the correlation among different features and now we want to explore correlation among genres and we will be using the median feature value for each genre.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+genre_average <- songs_info %>%
+  select(-track_popularity) %>%
+  group_by(playlist_genre) %>%
+  summarise_if(is.numeric, median, na.rm = TRUE) %>%
+  ungroup() 
+
+new_genre_average <- genre_average  %>%
+  select(feature_name, -mode) %>% 
+  scale() %>%
+  t() %>%
+  as.matrix() %>%
+  cor() 
+
+colnames(new_genre_average) <-genre_average$playlist_genre
+rownames(new_genre_average) <-genre_average$playlist_genre
+
+new_genre_average %>%
+  corrplot::corrplot(method = 'color', 
+                     order = 'hclust',
+                     type = 'upper',
+                     tl.col = 'black',
+                     diag = FALSE,
+                     addCoef.col = "black",
+                     number.cex = 0.6,
+                     col = colorRampPalette(colors = c('red','white','green'))(1000))
+```
+<<<<<<< HEAD
+<br>
+=======
+>>>>>>> 8c0a350 (result and interactive)
+From the graph, we can see that `rap` have positive relationship with `latin` and `r&b` and have negative correlation with the rest genres.
+`latin` has positve relationship with `r&b` and negative correlation with the rest genres. `r%b` has negative correlation with `rock`, `edm` and `pop`. `rock` has positive relationship with `edm` and `pop` and `edm` has postive correlation with `pop`
+
+## Distribution of Genre
+
+### Overall Distribution of Features
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+songs_info %>%
+  select(-c(track_popularity,playlist_genre))%>%
+  plot_num()
+```
+<br>
+From the histograms, we can observe the following:<br>
+1.Songs with duration of 2.5 to 4 minutes have majority listeners.<br>
+2.More than 80% of data have a value no larger than 0.1 in instrumentalness <br>
+3.Energy and Danceability are approximately normally distribuited and Valence is normally distributed <br>
+4. Most of the songs have a loudness level between -5dB and -10db <br>
+5. Majority songs have speechiness less than 0.25 indicating that more speechy songs aren’t favoured.<br>
+6. Most songs have liveness less than 0.25 which means that those songs are not recoreded.<br>
+7. The mode looks like a bimodal distribution and there are only value 0 and value 1.
+8. The key feature are separated approximately evenly amont all songs. <br>
+
+
+### QQ plot 
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+p1 <- qqPlot(songs_info$acousticness)
+p2 <- qqPlot(songs_info$danceability)
+p3 <- qqPlot(songs_info$energy)
+p4 <- qqPlot(songs_info$instrumentalness)
+p5 <- qqPlot(songs_info$liveness)
+p6 <- qqPlot(songs_info$loudness)
+p7 <- qqPlot(songs_info$valence)
+p8 <- qqPlot(songs_info$speechiness)
+```
+<<<<<<< HEAD
+<br>
+=======
+>>>>>>> 8c0a350 (result and interactive)
+From QQ plot, we can tell that danceability and tempo follows normal distribution, while others deviate from normal distribution.<br>
+
+Valence: It is the only feature without many outliers. Latin's mean and percentiles are higher than all other genre. Edm's mean and percentiles is lowest, while all others remain similar to each other.<br>
+
+Energy: edm has the highest energy and rock might have the highest variance probably. r&b has the lowest energy, which is expected.<br>
+
+Danceability: rock has the lowest mean danceability, while other genre are on the same level. There are a lot of low outliers for all genre.<br>
+
+loudness: as the loudness for nearly all the genre are looking similar, and variance of the loudness seems low, and there are lots of low outliers for each genre.<br>
+
+speechiness: among all the genre, rap's speechiness is the highest. and speechiness for r&b and latin are similar, while all others remains every low speechiness.<br>
+
+Accoustcness: since it can provide a good separation for all six genres because the there are considerable differnces between median values and the range. `R&b` genre has the highest value on acousticness from the previous box <br>
+
+Instrumentalness: It's not normally distributed because it provides a clear separation between `edm` and other genres because it's the only genre with range and it has the highes score on it from the boxplot.<br>
+
+Liveness: The median value of each genre are almost the same and the differneces among the ranges are not large enough to be a good separation.<br>
+
+
+
+<!--chapter:end:05-results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+In this part, we draw two chart to show each genre's feature value. The first chart is Bar Chart, and the second is Radar Chart. 
+
+**Bar Chart**
+1. Link: Click the url:https://rpubs.com/MyLittlePier/846922
+
+2. Description: The first part of our interactive analysis was built with D3 version 7.
+
+3. Instructions: 
+
+The default graph is Pop Genre; 
+To change genre type, click genre button below
+
+(The code is uploaded to https://jsfiddle.net/2o17fs9q/2/)
+
+**Radar Chart**
+1. Link: Click the url: https://my-little-pier.glitch.me
+
+2. Description: The second part of our interactive analysis was built with D3 version 3.
+
+3. Intructions:
+
+This radar chart shows the six genres--rock,latin,pop,r&b,edm,and rap--with their corresponding features. Here, we choose five main features which are valence, loudness, instrumentaless, energy,and danceability. 
+
+Note: The number displayed on the chart was in %, and we took the absolute value of loudness and multiplied them by 0.1 to make all number range be similar.
+
+As users move to any of the six regions on the chart, users can see the corresponding  genre's feature.
+
+(The code is uploaded to https://glitch.com/edit/#!/my-little-pier)
+
+We also uploaded our code to github:https://github.com/SchizoidMann/spotify_songs/tree/main/interactive
+
+<!--chapter:end:06-interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+<br>
+After exploring the each music features and relationship among them, we have gained a more through understanding of songs genres and observed several interesting discoveries to answer questions we came up with in the beginning.<br>
+<br>
+
+We first analyzed the basic information of each genre and plotted the number of each genres with the average popularity. One interesting finding is that the number of songs in genre edm is not equivalent to the average popularity. Even though it provides some useful information about how popular this genre is, we can't simply use it to describe the overall popularity. By further analyzing the features in each genre using density plot, we were able to select eight features: Valence, Energy, Danceability, loudness, speechiness, Accoustcness, Instrumentalness and Liveness that provide good insight of separating the genres. Then, we used histogram and boxplot to further explore how those eight features define genres and how those features are related to each other.<br>
+<br>
+
+By analyzing the correlation among features, we found that there exists some positive and negative correlations among features. Most correlations matches with our understanding toward music such as Energy and loudness are fairly highly correlated (0.68) and loudness and acousticnes are negatively correlated(-0.36) which makes sense because the louder the music is, the less acoustic the music will be. Another interesting discovery is that the danceability is negatively correlated with tempo and energy but in reality, people are more likely to dance if the energy is high or if the temp is fast. After analyzing the correlation between feaures and genres, we were able to draw conclusions on the how music features define and affect genres. By analyzing the distribution of each feature using histogram and qqplot, we discovered some more detailed information of each feature that.<br>
+<br>
+
+Despite these findings, our analysis is limited. As in our result, we cannot find very strong indicators for r&b, pop and latin, in the future we will include more features and trying to find ways to split these six music genre in a much clearer way. Moreover, our dataset does not include geological information about songs, which will affect the songs' popularity. In the future, if geological information is included, we will generate heat maps for different genre of songs and analyze the influences of geological location on popularity of different genre. Since this time we only focused on data exploration, we are not using any modelings to help up better characterize and predict genres using features. So in the future work, we could use such modelings and machine learning techniques to generate better and more meaningful insights.
+
+<!--chapter:end:07-conclusion.Rmd-->
+
