@@ -1,14 +1,22 @@
 # Missing values
-```{r setup, include=FALSE}
-# this prevents package loading message from appearing in the rendered version of your problem set
-knitr::opts_chunk$set(warning = FALSE, message = FALSE,
-                      echo = TRUE)
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library(readr)
 library(tidyverse)
-library(patchwork)
+library(socviz)
+library(dplyr)
+library("ggpubr")
 library(openintro)
+library(dbplyr)
+library(car)
+library(highcharter)
+library(funModeling)
+library(patchwork)
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
+songs_info <- spotify_songs %>%
+  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
 ```
-We have found that our final data set has missing values in only few rows which is not really useful. We decided to omit them and use the ucla_textbooks_f18 data set in openintro package.
-```{r,fig.width=12,fig.height=12,message=FALSE,echo=FALSE,warning=FALSE}
+
+```{r,fig.width=14,fig.height=14,echo=FALSE,message=FALSE,warning=FALSE}
 missing_value_plot<-function(data,type='counts'){
   # find and count the missing patterns
   missing_patterns <- data.frame(is.na(data)) %>%
@@ -66,7 +74,7 @@ missing_value_plot<-function(data,type='counts'){
     top <- ggplot(column_count,aes(x=factor(variable, levels=column_count$variable), y=count))+
       geom_col(fill='lightblue')+
       labs(x='',y='num rows missing:')+
-      ggtitle('Missing Value Patterns with counts')
+      ggtitle('Missing Value Patterns with counts')+ theme_grey(16) 
     
     # plot the right graph
     row_count <-new_missing_patterns %>%
@@ -121,7 +129,9 @@ missing_value_plot<-function(data,type='counts'){
       heights = c(1, 4)
     )
 }
-missing_value_plot(openintro::ucla_textbooks_f18,type='counts')
-missing_value_plot(openintro::ucla_textbooks_f18,type='percents')
+
+missing_value_plot(spotify_songs[0:7],type = 'counts')
+missing_value_plot(spotify_songs[8:14],type = 'counts')
 ```
-According to the plot above, we can tell that there are 20 missing patterns and the fifth missing pattern is a complete case. The fisrt missing patterns has the highest row count. It seems that there is correlation between the price of new books and used books both in amazon and in bookstore because they all have really high missing values compared with other variables. Also, it's quiet strange that there are so many missing values in book price variables. Regarding of book features,textbook_isbn is more likely to be missing than any other book features except price because book isbn is long and complicated and people normally won't use isbn much when they buy books. There are three columns, year,term and subject doesn't have missing values. One interesting observation is that there are no missing values in subject, but there are missing values in Subject abbreviation which means that some book are not used for one specific subject but for multiple subjects and that's why the subject abbr is missing because it doesn't know how to fill in the subject abbreviation.
+<br>
+Because our dataset has too many columns and each column name is long, it's not easy to see the missing pattern of the whole data in one graph, so instead, we separated the dataframe into 2 parts and plot each part. As we can see from the graph that in our dataset, there are only three columns with missing values, `track_artist`,`track_name`, and `track_album_name`. Since all three columns contains information that is not relevant to our analysis on music characteristic and genre and we will not use those three columns at all, so we decided to omit it.

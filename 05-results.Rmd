@@ -57,7 +57,7 @@ songs_info %>%
   labs(title = 'Music Feature Density - by Genre', y = 'density')
 ```
 <br>
-The above density plot of music features of each genre tells us how each music feature is related to each genre and how relevant that particular feature defines the genre. From the plot, we can see that `edm` genre is less likely to be acoustic and more likely to have high energy with low valence(negativeness e.g. sad, depressed, angry) and `edm ` have the highest number of songs having medium level tempo(spped or pace of a song). For `latin` genre, we can see that it's likely to have high dancebility and high valence(positiveness). For `pop` genre, we can see that it's less likely to have songs with longer durations and most of songs in the pop have medium length duration. For `r&b` genre, it scores low on liveness and has medium level valence and high durantion of songs. `rap` genre scores high on dancebility, duration and speechiness which is obvious and it matches our understanding toward rap songs because rap songs tend to have more spoken words than others. And for `rock` genre, we can see that it has high value on liveness which means that it's more likely to be recorded and low on dancebility which also matches our general understanding toward rock songs because most them are less likely to be danceable. For features like duration_ms, key, mode and tempo are not providing good insight of separting the genres, so we will focus on the rest eight features and explore them in more depth. <br>
+The above density plot of music features of each genre tells us how each music feature is related to each genre and how relevant that particular feature defines the genre. From the plot, we can see that `edm` genre is less likely to be acoustic and more likely to have high energy with low valence(negativeness e.g. sad, depressed, angry) and `edm ` have the highest number of songs having medium level tempo(spped or pace of a song). For `latin` genre, we can see that it's likely to have high dancebility and high valence(positiveness). For `pop` genre, we can see that it's less likely to have songs with longer durations and most of songs in the pop have medium length duration. For `r&b` genre, it scores low on liveness and has medium level valence and high durantion of songs. `rap` genre scores high on dancebility, duration and speechiness which is obvious and it matches our understanding toward rap songs because rap songs tend to have more spoken words than others. And for `rock` genre, we can see that it has high value on liveness which means that it's more likely to be recorded and low on dancebility which also matches our general understanding toward rock songs because most them are less likely to be danceable. For features like duration_ms, key, mode and tempo are not providing good insight of separating the genres, so we will focus on the rest eight features and explore them in more depth. <br>
 
 ### History and Boxplot For Genres
 ```{r,fig.width=14,fig.height=14,echo=FALSE,message=FALSE,warning=FALSE}
@@ -83,8 +83,8 @@ b <-feature_plot(songs_info,'rap')
 c <- feature_plot(songs_info,'rock')
 d <-feature_plot(songs_info,'latin')
 e <-feature_plot(songs_info,'r&b')
-g <-feature_plot(songs_info,'edm')
-ggarrange(a,b,c,d,e,g,nrow=3,ncol=2)
+f <-feature_plot(songs_info,'edm')
+ggarrange(f,d,a,b,c,e,nrow=3,ncol=2)
 ```
 <br>
 From the histogram, we can tell that features are different in genres, but the differneces among features in each genre are not big enough for us to come up with an conclusion, so we need to create other plots to help up analyze those eight features and we chose to plot a box-whisker plot for the rest eight features against each genre:
@@ -220,27 +220,26 @@ new_genre_average %>%
                      col = colorRampPalette(colors = c('red','white','green'))(1000))
 ```
 <br>
-From the graph, we can see that `rap` have positive relationship with `latin` and `r&b` and have negative correlation with the rest genres.
-`latin` has positve relationship with `r&b` and negative correlation with the rest genres. `r%b` has negative correlation with `rock`, `edm` and `pop`. `rock` has positive relationship with `edm` and `pop` and `edm` has postive correlation with `pop`
+From the graph, we can see that `rap` have positive relationship with `latin` and `r&b` and have negative correlation with the rest genres.`latin` has positve relationship with `r&b` and negative correlation with the rest genres. `r%b` has negative correlation with `rock`, `edm` and `pop`. `rock` has positive relationship with `edm` and `pop` and `edm` has postive correlation with `pop`
 
 ## Distribution of Genre
 
 ### Overall Distribution of Features
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 songs_info %>%
-  select(-c(track_popularity,playlist_genre))%>%
+  select(c(acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,valence))%>%
   plot_num()
 ```
 <br>
 From the histograms, we can observe the following:<br>
-1.Songs with duration of 2.5 to 4 minutes have majority listeners.<br>
-2.More than 80% of data have a value no larger than 0.1 in instrumentalness <br>
-3.Energy and Danceability are approximately normally distribuited and Valence is normally distributed <br>
+1. Songs with duration of 2.5 to 4 minutes have majority listeners.<br>
+2. More than 80% of data have a value no larger than 0.1 in instrumentalness <br>
+3. Energy and Danceability are approximately normally distribuited and Valence is normally distributed <br>
 4. Most of the songs have a loudness level between -5dB and -10db <br>
 5. Majority songs have speechiness less than 0.25 indicating that more speechy songs aren’t favoured.<br>
 6. Most songs have liveness less than 0.25 which means that those songs are not recoreded.<br>
 7. The mode looks like a bimodal distribution and there are only value 0 and value 1.
-8. The key feature are separated approximately evenly amont all songs. <br>
+8. The key feature are separated approximately evenly amount all songs. <br>
 
 
 ### QQ plot 
@@ -254,7 +253,6 @@ p6 <- qqPlot(songs_info$loudness)
 p7 <- qqPlot(songs_info$valence)
 p8 <- qqPlot(songs_info$speechiness)
 ```
-
 <br>
 From QQ plot, we can tell that danceability and tempo follows normal distribution, while others deviate from normal distribution.<br>
 
@@ -275,3 +273,12 @@ Instrumentalness: It's not normally distributed because it provides a clear sepa
 Liveness: The median value of each genre are almost the same and the differneces among the ranges are not large enough to be a good separation.<br>
 
 
+# Conclusion
+<br>
+After exploring the each music features and relationship among them, we have gained a more through understanding of songs genres and observed several interesting discoveries to answer questions we came up with in the beginning.<br>
+<br>
+We first analyzed the basic information of each genre and plotted the number of each genres with the average popularity. One interesting finding is that the number of songs in genre edm is not equivalent to the average popularity. Even though it provides some useful information about how popular this genre is, we can't simply use it to describe the overall popularity. By further analyzing the features in each genre using density plot, we were able to select eight features: Valence, Energy, Danceability, loudness, speechiness, Accoustcness, Instrumentalness and Liveness that provide good insight of separating the genres. Then, we used histogram and boxplot to further explore how those eight features define genres and how those features are related to each other.<br>
+<br>
+By analyzing the correlation among features, we found that there exists some positive and negative correlations among features. Most correlations matches with our understanding toward music such as Energy and loudness are fairly highly correlated (0.68) and loudness and acousticnes are negatively correlated(-0.36) which makes sense because the louder the music is, the less acoustic the music will be. Another interesting discovery is that the danceability is negatively correlated with tempo and energy but in reality, people are more likely to dance if the energy is high or if the temp is fast. After analyzing the correlation between feaures and genres, we were able to draw conclusions on the how music features define and affect genres. By analyzing the distribution of each feature using histogram and qqplot, we discovered some more detailed information of each feature that.<br>
+<br>
+Despite these findings, our analysis is limited. As in our result, we cannot find very strong indicators for r&b, pop and latin, in the future we will include more features and trying to find ways to split these six music genre in a much clearer way. Moreover, our dataset does not include geological information about songs, which will affect the songs' popularity. In the future, if geological information is included, we will generate heat maps for different genre of songs and analyze the influences of geological location on popularity of different genre. Since this time we only focused on data exploration, we are not using any modelings to help up better characterize and predict genres using features. So in the future work, we could use such modelings and machine learning techniques to generate better and more meaningful insights.
