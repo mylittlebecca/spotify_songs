@@ -1,16 +1,4 @@
 # Results
-<<<<<<< HEAD
-=======
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
-library(tidyverse)
-spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
-songs_info <- spotify_songs %>%
-  select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
-
-```
-
-# Results
->>>>>>> 8c0a350 (result and interactive)
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library(readr)
 library(tidyverse)
@@ -22,12 +10,9 @@ library(dbplyr)
 library(car)
 library(highcharter)
 library(funModeling)
-<<<<<<< HEAD
 spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv',show_col_types = FALSE)
 songs_info <- spotify_songs %>%
   select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
-=======
->>>>>>> 8c0a350 (result and interactive)
 ```
 In this section, we are going to focus on the relationship among genre vs music features vs popularity. More specifically, we will be exploring how music genres differ in characteristics, discovering what music features (individual or combined) will positively or negatively affect the popularity and figuring out if there exists any correlation between features and figure out if the relationship between features and popularity satisfy certain patterns or distributions.
 
@@ -75,11 +60,7 @@ songs_info %>%
 The above density plot of music features of each genre tells us how each music feature is related to each genre and how relevant that particular feature defines the genre. From the plot, we can see that `edm` genre is less likely to be acoustic and more likely to have high energy with low valence(negativeness e.g. sad, depressed, angry) and `edm ` have the highest number of songs having medium level tempo(spped or pace of a song). For `latin` genre, we can see that it's likely to have high dancebility and high valence(positiveness). For `pop` genre, we can see that it's less likely to have songs with longer durations and most of songs in the pop have medium length duration. For `r&b` genre, it scores low on liveness and has medium level valence and high durantion of songs. `rap` genre scores high on dancebility, duration and speechiness which is obvious and it matches our understanding toward rap songs because rap songs tend to have more spoken words than others. And for `rock` genre, we can see that it has high value on liveness which means that it's more likely to be recorded and low on dancebility which also matches our general understanding toward rock songs because most them are less likely to be danceable. For features like duration_ms, key, mode and tempo are not providing good insight of separting the genres, so we will focus on the rest eight features and explore them in more depth. <br>
 
 ### History and Boxplot For Genres
-<<<<<<< HEAD
 ```{r,fig.width=14,fig.height=14,echo=FALSE,message=FALSE,warning=FALSE}
-=======
-```{r,fig.width=12,fig.height=12,echo=FALSE,message=FALSE,warning=FALSE}
->>>>>>> 8c0a350 (result and interactive)
 feature_plot <- function(data,genre){
   genre_info <- data %>%
   filter(playlist_genre==genre) %>%
@@ -238,10 +219,7 @@ new_genre_average %>%
                      number.cex = 0.6,
                      col = colorRampPalette(colors = c('red','white','green'))(1000))
 ```
-<<<<<<< HEAD
 <br>
-=======
->>>>>>> 8c0a350 (result and interactive)
 From the graph, we can see that `rap` have positive relationship with `latin` and `r&b` and have negative correlation with the rest genres.
 `latin` has positve relationship with `r&b` and negative correlation with the rest genres. `r%b` has negative correlation with `rock`, `edm` and `pop`. `rock` has positive relationship with `edm` and `pop` and `edm` has postive correlation with `pop`
 
@@ -276,10 +254,8 @@ p6 <- qqPlot(songs_info$loudness)
 p7 <- qqPlot(songs_info$valence)
 p8 <- qqPlot(songs_info$speechiness)
 ```
-<<<<<<< HEAD
+
 <br>
-=======
->>>>>>> 8c0a350 (result and interactive)
 From QQ plot, we can tell that danceability and tempo follows normal distribution, while others deviate from normal distribution.<br>
 
 Valence: It is the only feature without many outliers. Latin's mean and percentiles are higher than all other genre. Edm's mean and percentiles is lowest, while all others remain similar to each other.<br>

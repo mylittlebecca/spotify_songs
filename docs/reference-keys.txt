@@ -1,0 +1,17 @@
+tab:unnamed-chunk-3
+introduction
+data-sources
+spotify-songs-of-2020
+data-transformation
+missing-values
+results
+statistics-of-genres
+general-overview-of-genres
+density-curve-of-each-genre
+history-and-boxplot-for-genres
+correlation
+distribution-of-genre
+overall-distribution-of-features
+qq-plot
+interactive-component
+conclusion
