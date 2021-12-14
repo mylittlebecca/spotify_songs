@@ -13,6 +13,5 @@ correlation
 distribution-of-genre
 overall-distribution-of-features
 qq-plot
-conclusion
 interactive-component
-conclusion-1
+conclusion
