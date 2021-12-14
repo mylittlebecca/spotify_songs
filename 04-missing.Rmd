@@ -16,7 +16,7 @@ songs_info <- spotify_songs %>%
   select(-c(track_id,track_name,track_artist,track_album_id,track_album_name,track_album_release_date,playlist_name,playlist_id,playlist_subgenre))
 ```
 
-```{r,fig.width=14,fig.height=14,echo=FALSE,message=FALSE,warning=FALSE}
+```{r,fig.width=20,fig.height=20,echo=FALSE,message=FALSE,warning=FALSE}
 missing_value_plot<-function(data,type='counts'){
   # find and count the missing patterns
   missing_patterns <- data.frame(is.na(data)) %>%
@@ -129,9 +129,14 @@ missing_value_plot<-function(data,type='counts'){
       heights = c(1, 4)
     )
 }
+```
 
-missing_value_plot(spotify_songs[0:7],type = 'counts')
-missing_value_plot(spotify_songs[8:14],type = 'counts')
+```{r,fig.width=26,fig.height=26,echo=FALSE,message=FALSE,warning=FALSE}
+missing_value_plot(spotify_songs[0:11],type = 'counts')
+```
+
+```{r,fig.width=20,fig.height=20,echo=FALSE,message=FALSE,warning=FALSE}
+missing_value_plot(spotify_songs[12:23],type = 'counts')
 ```
 <br>
 Because our dataset has too many columns and each column name is long, it's not easy to see the missing pattern of the whole data in one graph, so instead, we separated the dataframe into 2 parts and plot each part. As we can see from the graph that in our dataset, there are only three columns with missing values, `track_artist`,`track_name`, and `track_album_name`. Since all three columns contains information that is not relevant to our analysis on music characteristic and genre and we will not use those three columns at all, so we decided to omit it.
